@@ -162,7 +162,9 @@
     "title": "Contact Us",
     "subtitle": "Get in Touch",
     "description": "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "socialMedia": "Social Media",
     "form": {
+      "title": "Send us a Message",
       "name": "Your Name",
       "email": "Email Address",
       "phone": "Phone Number",
@@ -171,6 +173,7 @@
       "send": "Send Message",
       "sending": "Sending...",
       "success": "Message sent successfully!",
+      "successMessage": "We'll get back to you soon!",
       "error": "Failed to send message. Please try again."
     },
     "info": {
