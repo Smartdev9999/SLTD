@@ -16,6 +16,7 @@ export const LanguageSwitcher = () => {
 
   const handleLanguageChange = (langCode: string) => {
     i18n.changeLanguage(langCode);
+    document.documentElement.lang = langCode;
   };
 
   return (
