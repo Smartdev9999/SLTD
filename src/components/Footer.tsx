@@ -1,9 +1,11 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 export const Footer = () => {
   const { t } = useTranslation();
+  const { companyName, tagline, logoUrl } = useSiteSettings();
 
   const quickLinks = [
     { name: t('nav.about'), href: "/about" },
@@ -27,12 +29,18 @@ export const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center">
-                <span className="font-display text-xl text-primary-foreground">LS</span>
-              </div>
+              {logoUrl ? (
+                <img src={logoUrl} alt={companyName || 'Logo'} className="w-10 h-10 object-contain rounded-md" />
+              ) : (
+                <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center">
+                  <span className="font-display text-xl text-primary-foreground">
+                    {(companyName || 'LS').substring(0, 2).toUpperCase()}
+                  </span>
+                </div>
+              )}
               <div>
-                <span className="font-display text-xl text-accent-foreground">LSTD</span>
-                <p className="text-xs text-muted-foreground">Public Works & Transport</p>
+                <span className="font-display text-xl text-accent-foreground">{companyName || 'LSTD'}</span>
+                <p className="text-xs text-muted-foreground">{tagline || t('header.tagline')}</p>
               </div>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -121,7 +129,7 @@ export const Footer = () => {
       <div className="border-t border-muted/10">
         <div className="container py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} LSTD. {t('footer.copyright')}
+            © {new Date().getFullYear()} {companyName || 'LSTD'}. {t('footer.copyright')}
           </p>
           <div className="flex gap-6">
             <Link to="#" className="text-muted-foreground hover:text-primary transition-colors text-sm">
