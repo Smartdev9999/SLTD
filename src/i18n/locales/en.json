@@ -8,113 +8,113 @@
     "careers": "Careers",
     "contact": "Contact",
     "login": "Login",
-    "bookTraining": "Book Training"
+    "bookTraining": "Get Started"
   },
   "header": {
     "phone": "(123) 456-7890",
-    "email": "info@lstd.com",
-    "tagline": "Certified Training Provider"
+    "email": "info@lstd.la",
+    "tagline": "Public Works & Transportation Solutions"
   },
   "hero": {
-    "badge": "Industry-Leading Safety Training",
-    "title1": "PROFESSIONAL",
-    "title2": "INDUSTRIAL",
-    "title3": "TRAINING",
-    "subtitle": "Empowering your workforce with certified safety training and compliance solutions. Keep your team safe and your operations compliant.",
-    "viewCourses": "View Courses",
+    "badge": "Trusted Revenue Collection Partner",
+    "title1": "PUBLIC WORKS",
+    "title2": "& TRANSPORTATION",
+    "title3": "SOLUTIONS",
+    "subtitle": "Leading provider of revenue collection services for public works and transportation infrastructure across the nation. Efficient, transparent, and reliable.",
+    "viewCourses": "Our Services",
     "requestQuote": "Request Quote",
     "stats": {
       "experience": "Years Experience",
-      "certifications": "Certifications",
-      "professionals": "Trained Professionals"
+      "certifications": "Provinces Covered",
+      "professionals": "Transactions Processed"
     }
   },
   "courses": {
-    "sectionLabel": "Our Training Programs",
-    "title1": "CERTIFIED SAFETY",
-    "title2": "TRAINING COURSES",
-    "description": "From basic safety awareness to advanced certifications, we offer comprehensive training programs tailored to your industry needs.",
-    "viewAll": "View All Courses",
-    "duration": "Duration",
-    "participants": "Participants",
-    "certification": "Certification",
-    "enroll": "Enroll Now",
+    "sectionLabel": "Our Core Services",
+    "title1": "COMPREHENSIVE",
+    "title2": "REVENUE SOLUTIONS",
+    "description": "From toll collection to transportation fee management, we provide end-to-end revenue collection services for public infrastructure.",
+    "viewAll": "View All Services",
+    "duration": "Coverage",
+    "participants": "Capacity",
+    "certification": "Service Type",
+    "enroll": "Learn More",
     "list": {
       "osha10": {
-        "title": "OSHA 10-Hour General Industry",
-        "description": "Foundational safety training covering workplace hazards, PPE, and OSHA regulations for general industry workers."
+        "title": "Toll Collection Services",
+        "description": "Comprehensive toll collection management for highways, bridges, and expressways across the nation."
       },
       "osha30": {
-        "title": "OSHA 30-Hour Construction",
-        "description": "Comprehensive safety training for construction supervisors and managers covering all major safety topics."
+        "title": "Transportation Fee Management",
+        "description": "End-to-end fee collection and management for public transportation systems and terminals."
       },
       "forklift": {
-        "title": "Forklift Operator Certification",
-        "description": "Complete forklift training including theory, hands-on operation, and OSHA-compliant evaluation."
+        "title": "Electronic Payment Systems",
+        "description": "Modern electronic toll collection and contactless payment solutions for seamless transactions."
       },
       "confined": {
-        "title": "Confined Space Entry",
-        "description": "Training on hazards of confined spaces, atmospheric testing, and rescue procedures."
+        "title": "Revenue Reporting & Analytics",
+        "description": "Real-time reporting, analytics, and transparent financial management for government partners."
       },
       "fall": {
-        "title": "Fall Protection",
-        "description": "Comprehensive fall hazard awareness, equipment inspection, and proper use of fall arrest systems."
+        "title": "Infrastructure Support",
+        "description": "Technical support and maintenance for toll plazas, collection points, and payment systems."
       },
       "hazmat": {
-        "title": "Hazmat Awareness",
-        "description": "Initial training for employees who may encounter hazardous materials in the workplace."
+        "title": "Consulting Services",
+        "description": "Expert consulting for public works revenue optimization and transportation fee structures."
       }
     }
   },
   "about": {
     "sectionLabel": "About LSTD",
     "title1": "YOUR TRUSTED",
-    "title2": "TRAINING PARTNER",
-    "description": "For over two decades, LSTD has been the premier provider of industrial safety training and compliance solutions. Our mission is to create safer workplaces through education, practical training, and ongoing support.",
+    "title2": "COLLECTION PARTNER",
+    "description": "For over two decades, LSTD has been the premier provider of revenue collection services for public works and transportation infrastructure. Our mission is to ensure efficient, transparent, and reliable revenue management for government projects.",
     "learnMore": "Learn More About Us",
     "features": {
-      "osha": "OSHA-Authorized Training Provider",
-      "certified": "Certified Instructors with Field Experience",
-      "flexible": "Flexible Scheduling & On-Site Training",
-      "customized": "Customized Programs for Your Industry",
-      "bilingual": "Bilingual Training Available",
-      "digital": "Digital Certificates & Records Management"
+      "osha": "Government-Authorized Service Provider",
+      "certified": "Experienced Collection Teams",
+      "flexible": "Nationwide Coverage",
+      "customized": "Customized Solutions for Each Project",
+      "bilingual": "Modern Technology Integration",
+      "digital": "Real-time Reporting & Transparency"
     },
     "vision": {
       "title": "Our Vision",
-      "content": "To be the leading provider of industrial safety training in the region, setting the standard for excellence and innovation."
+      "content": "To be the leading provider of public works revenue collection services in the region, setting the standard for efficiency, transparency, and innovation."
     },
     "mission": {
       "title": "Our Mission",
-      "content": "To empower organizations with the knowledge and skills needed to create safe, compliant, and productive workplaces."
+      "content": "To deliver reliable and transparent revenue collection services that support national infrastructure development and public transportation systems."
     },
     "values": {
       "title": "Core Values",
-      "safety": "Safety First",
+      "safety": "Integrity",
       "excellence": "Excellence",
-      "integrity": "Integrity",
+      "integrity": "Transparency",
       "innovation": "Innovation"
     },
     "history": {
       "title": "Our History",
-      "content": "Founded in 1998, LSTD has grown from a small training consultancy to a comprehensive safety solutions provider serving clients across multiple industries."
+      "content": "Founded in 1998, LSTD has grown from a small collection agency to a comprehensive public works revenue solutions provider serving projects across the nation."
     },
     "team": {
       "title": "Management Team",
-      "content": "Our leadership team brings decades of combined experience in industrial safety, training development, and organizational management."
+      "content": "Our leadership team brings decades of combined experience in public administration, financial management, and infrastructure development."
     }
   },
   "cta": {
-    "title1": "READY TO ELEVATE",
-    "title2": "YOUR TEAM'S SAFETY?",
-    "description": "Get in touch with our training specialists to discuss your needs and build a customized training program for your organization.",
+    "title1": "READY TO PARTNER",
+    "title2": "WITH US?",
+    "description": "Get in touch with our specialists to discuss your public works revenue collection needs and build a customized solution for your project.",
     "schedule": "Schedule Consultation",
     "call": "Call"
   },
   "footer": {
-    "description": "Professional industrial safety training and compliance solutions for businesses of all sizes.",
+    "description": "Professional revenue collection services for public works and transportation infrastructure across the nation.",
     "quickLinks": "Quick Links",
-    "popularCourses": "Popular Courses",
+    "popularCourses": "Our Services",
     "contactUs": "Contact Us",
     "copyright": "All rights reserved.",
     "privacy": "Privacy Policy",
@@ -122,8 +122,8 @@
   },
   "projects": {
     "title": "Our Projects",
-    "subtitle": "PPP Projects & Initiatives",
-    "description": "Explore our public-private partnership projects and major initiatives that have shaped industrial safety standards.",
+    "subtitle": "PPP Projects & Infrastructure",
+    "description": "Explore our public-private partnership projects and major infrastructure initiatives across the nation.",
     "viewGallery": "View Gallery",
     "milestones": "Key Milestones",
     "ongoing": "Ongoing",
@@ -131,12 +131,12 @@
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Training & Consulting Services",
-    "description": "Comprehensive industrial safety solutions tailored to your organization's needs.",
+    "subtitle": "Revenue Collection Solutions",
+    "description": "Comprehensive revenue collection and management services tailored to public works and transportation projects.",
     "categories": {
-      "training": "Training Programs",
-      "consulting": "Safety Consulting",
-      "auditing": "Compliance Auditing",
+      "training": "Toll Collection",
+      "consulting": "Fee Management",
+      "auditing": "Financial Reporting",
       "custom": "Custom Solutions"
     }
   },
@@ -152,7 +152,7 @@
   "careers": {
     "title": "Careers",
     "subtitle": "Join Our Team",
-    "description": "Build your career with LSTD and help us create safer workplaces around the world.",
+    "description": "Build your career with LSTD and help us support national infrastructure development.",
     "openPositions": "Open Positions",
     "applyNow": "Apply Now",
     "benefits": "Benefits",
