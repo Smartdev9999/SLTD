@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { FrontEditToggle } from "@/components/front-edit/FrontEditToggle";
 import { ReactNode } from "react";
 
 interface PageLayoutProps {
@@ -14,6 +15,7 @@ export const PageLayout = ({ children }: PageLayoutProps) => {
         {children}
       </main>
       <Footer />
+      <FrontEditToggle />
     </div>
   );
 };
