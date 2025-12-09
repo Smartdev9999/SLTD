@@ -4,10 +4,12 @@ import { useTranslation } from "react-i18next";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useTranslation();
+  const { companyName, tagline, logoUrl } = useSiteSettings();
 
   const navigation = [
     { name: t('nav.home'), href: "/" },
@@ -43,12 +45,20 @@ export const Header = () => {
       <nav className="bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container flex items-center justify-between py-4">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-primary rounded-md flex items-center justify-center">
-              <span className="font-display text-2xl text-primary-foreground">LS</span>
-            </div>
+            {logoUrl ? (
+              <img src={logoUrl} alt={companyName || 'Logo'} className="w-12 h-12 object-contain rounded-md" />
+            ) : (
+              <div className="w-12 h-12 bg-primary rounded-md flex items-center justify-center">
+                <span className="font-display text-2xl text-primary-foreground">
+                  {(companyName || 'LS').substring(0, 2).toUpperCase()}
+                </span>
+              </div>
+            )}
             <div>
-              <span className="font-display text-2xl text-foreground tracking-wider">LSTD</span>
-              <p className="text-xs text-muted-foreground -mt-1">Industrial Training</p>
+              <span className="font-display text-2xl text-foreground tracking-wider">
+                {companyName || 'LSTD'}
+              </span>
+              <p className="text-xs text-muted-foreground -mt-1">{tagline || t('header.tagline')}</p>
             </div>
           </Link>
 
