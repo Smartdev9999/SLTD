@@ -1,34 +1,29 @@
 import { useTranslation } from 'react-i18next';
 import { PageLayout } from '@/components/layout/PageLayout';
-import { GraduationCap, Shield, ClipboardCheck, Settings, ArrowRight } from 'lucide-react';
+import { ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useServices } from '@/hooks/useServices';
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
+import { lazy, Suspense } from 'react';
+import type { LucideProps } from 'lucide-react';
 
-const services = [
-  {
-    key: 'training',
-    icon: GraduationCap,
-    features: ['OSHA Certification Programs', 'Custom Training Development', 'On-site Training', 'Online Learning'],
-  },
-  {
-    key: 'consulting',
-    icon: Shield,
-    features: ['Safety Program Development', 'Risk Assessment', 'Regulatory Compliance', 'Safety Culture Building'],
-  },
-  {
-    key: 'auditing',
-    icon: ClipboardCheck,
-    features: ['Facility Safety Audits', 'Compliance Gap Analysis', 'Corrective Action Plans', 'Follow-up Inspections'],
-  },
-  {
-    key: 'custom',
-    icon: Settings,
-    features: ['Industry-specific Solutions', 'Multilingual Training', 'Equipment Certification', 'Emergency Response'],
-  },
-];
+interface DynamicIconProps extends Omit<LucideProps, 'ref'> {
+  name: keyof typeof dynamicIconImports;
+}
+
+const DynamicIcon = ({ name, ...props }: DynamicIconProps) => {
+  const LucideIcon = lazy(dynamicIconImports[name]);
+  return (
+    <Suspense fallback={<div className="w-12 h-12 bg-muted rounded animate-pulse" />}>
+      <LucideIcon {...props} />
+    </Suspense>
+  );
+};
 
 export const Services = () => {
   const { t } = useTranslation();
+  const { services, isLoading } = useServices();
 
   return (
     <PageLayout>
@@ -50,33 +45,43 @@ export const Services = () => {
       {/* Services Grid */}
       <section className="py-16">
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-8">
-            {services.map(({ key, icon: Icon, features }) => (
-              <div
-                key={key}
-                className="bg-card border border-border rounded-lg p-8 hover:border-primary transition-colors"
-              >
-                <Icon className="w-12 h-12 text-primary mb-6" />
-                <h2 className="font-display text-2xl text-foreground mb-4">
-                  {t(`services.categories.${key}`)}
-                </h2>
-                <ul className="space-y-3 mb-6">
-                  {features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="outline" asChild>
-                  <Link to="/contact">
-                    {t('common.viewMore')}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </div>
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : services.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              {t('common.noData')}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8">
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className="bg-card border border-border rounded-lg p-8 hover:border-primary transition-colors"
+                >
+                  {service.icon && (
+                    <DynamicIcon 
+                      name={service.icon as keyof typeof dynamicIconImports} 
+                      className="w-12 h-12 text-primary mb-6" 
+                    />
+                  )}
+                  <h2 className="font-display text-2xl text-foreground mb-4">
+                    {service.title}
+                  </h2>
+                  <p className="text-muted-foreground mb-6">
+                    {service.description}
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link to="/contact">
+                      {t('common.viewMore')}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Link>
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
