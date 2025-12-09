@@ -110,7 +110,9 @@ export const Header = () => {
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="outline" size="sm">{t('nav.login')}</Button>
+            <Link to="/auth">
+              <Button variant="outline" size="sm">{t('nav.login')}</Button>
+            </Link>
             <Button size="sm">{t('nav.bookTraining')}</Button>
           </div>
 
@@ -133,7 +135,9 @@ export const Header = () => {
                 </Link>
               ))}
               <div className="flex gap-4 pt-4 border-t border-border">
-                <Button variant="outline" className="flex-1">{t('nav.login')}</Button>
+                <Link to="/auth" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">{t('nav.login')}</Button>
+                </Link>
                 <Button className="flex-1">{t('nav.bookTraining')}</Button>
               </div>
             </div>
