@@ -162,7 +162,9 @@
     "title": "联系我们",
     "subtitle": "取得联系",
     "description": "有问题？我们很乐意听取您的意见。给我们发送消息，我们会尽快回复。",
+    "socialMedia": "社交媒体",
     "form": {
+      "title": "给我们留言",
       "name": "您的姓名",
       "email": "电子邮箱",
       "phone": "电话号码",
@@ -171,6 +173,7 @@
       "send": "发送消息",
       "sending": "发送中...",
       "success": "消息发送成功！",
+      "successMessage": "我们会尽快回复您！",
       "error": "发送失败，请重试。"
     },
     "info": {
