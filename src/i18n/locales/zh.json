@@ -1,0 +1,195 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "projects": "项目",
+    "services": "服务",
+    "news": "新闻媒体",
+    "careers": "招聘",
+    "contact": "联系我们",
+    "login": "登录",
+    "bookTraining": "预约培训"
+  },
+  "header": {
+    "phone": "(123) 456-7890",
+    "email": "info@lstd.com",
+    "tagline": "认证培训服务商"
+  },
+  "hero": {
+    "badge": "行业领先的安全培训",
+    "title1": "专业",
+    "title2": "工业",
+    "title3": "培训",
+    "subtitle": "通过认证的安全培训和合规解决方案，为您的员工赋能。保护您的团队安全，确保运营合规。",
+    "viewCourses": "查看课程",
+    "requestQuote": "获取报价",
+    "stats": {
+      "experience": "年经验",
+      "certifications": "项认证",
+      "professionals": "名受训专业人员"
+    }
+  },
+  "courses": {
+    "sectionLabel": "我们的培训项目",
+    "title1": "认证安全",
+    "title2": "培训课程",
+    "description": "从基础安全意识到高级认证，我们提供全面的培训项目，满足您的行业需求。",
+    "viewAll": "查看全部",
+    "duration": "时长",
+    "participants": "参与人数",
+    "certification": "认证",
+    "enroll": "立即报名",
+    "list": {
+      "osha10": {
+        "title": "OSHA 10小时通用行业培训",
+        "description": "基础安全培训，涵盖工作场所危害、个人防护装备和OSHA法规。"
+      },
+      "osha30": {
+        "title": "OSHA 30小时建筑培训",
+        "description": "面向建筑监督员和经理的综合安全培训，涵盖所有主要安全主题。"
+      },
+      "forklift": {
+        "title": "叉车操作员认证",
+        "description": "完整的叉车培训，包括理论、实际操作和符合OSHA规定的评估。"
+      },
+      "confined": {
+        "title": "受限空间进入",
+        "description": "关于受限空间危害、大气检测和救援程序的培训。"
+      },
+      "fall": {
+        "title": "坠落防护",
+        "description": "全面的坠落危害意识、设备检查和坠落保护系统的正确使用。"
+      },
+      "hazmat": {
+        "title": "危险物质意识",
+        "description": "为可能接触工作场所危险物质的员工提供的初级培训。"
+      }
+    }
+  },
+  "about": {
+    "sectionLabel": "关于LSTD",
+    "title1": "您值得信赖的",
+    "title2": "培训合作伙伴",
+    "description": "二十多年来，LSTD一直是工业安全培训和合规解决方案的领先提供商。我们的使命是通过教育、实践培训和持续支持来创建更安全的工作场所。",
+    "learnMore": "了解更多",
+    "features": {
+      "osha": "OSHA授权培训机构",
+      "certified": "具有现场经验的认证讲师",
+      "flexible": "灵活的时间安排和现场培训",
+      "customized": "为您的行业定制的项目",
+      "bilingual": "多语言培训",
+      "digital": "数字证书和记录管理"
+    },
+    "vision": {
+      "title": "我们的愿景",
+      "content": "成为该地区领先的工业安全培训提供商，树立卓越和创新的标准。"
+    },
+    "mission": {
+      "title": "我们的使命",
+      "content": "为组织提供创建安全、合规和高效工作场所所需的知识和技能。"
+    },
+    "values": {
+      "title": "核心价值观",
+      "safety": "安全第一",
+      "excellence": "追求卓越",
+      "integrity": "诚信正直",
+      "innovation": "创新进取"
+    },
+    "history": {
+      "title": "我们的历史",
+      "content": "LSTD成立于1998年，从一家小型培训咨询公司发展成为服务多个行业客户的综合安全解决方案提供商。"
+    },
+    "team": {
+      "title": "管理团队",
+      "content": "我们的领导团队在工业安全、培训开发和组织管理方面拥有数十年的综合经验。"
+    }
+  },
+  "cta": {
+    "title1": "准备好提升",
+    "title2": "团队安全了吗？",
+    "description": "联系我们的培训专家，讨论您的需求，为您的组织制定定制培训计划。",
+    "schedule": "预约咨询",
+    "call": "致电"
+  },
+  "footer": {
+    "description": "为各种规模的企业提供专业的工业安全培训和合规解决方案。",
+    "quickLinks": "快速链接",
+    "popularCourses": "热门课程",
+    "contactUs": "联系我们",
+    "copyright": "版权所有。",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "projects": {
+    "title": "我们的项目",
+    "subtitle": "PPP项目和计划",
+    "description": "探索我们的公私合作项目和塑造工业安全标准的主要举措。",
+    "viewGallery": "查看图库",
+    "milestones": "重要里程碑",
+    "ongoing": "进行中",
+    "completed": "已完成"
+  },
+  "services": {
+    "title": "我们的服务",
+    "subtitle": "培训和咨询服务",
+    "description": "根据您组织的需求定制的全面工业安全解决方案。",
+    "categories": {
+      "training": "培训项目",
+      "consulting": "安全咨询",
+      "auditing": "合规审计",
+      "custom": "定制解决方案"
+    }
+  },
+  "news": {
+    "title": "新闻媒体",
+    "subtitle": "最新动态",
+    "description": "了解LSTD的最新新闻、新闻稿和媒体报道。",
+    "readMore": "阅读更多",
+    "pressReleases": "新闻稿",
+    "articles": "文章",
+    "gallery": "图片库"
+  },
+  "careers": {
+    "title": "招聘",
+    "subtitle": "加入我们的团队",
+    "description": "在LSTD发展您的职业生涯，帮助我们在世界各地创建更安全的工作场所。",
+    "openPositions": "空缺职位",
+    "applyNow": "立即申请",
+    "benefits": "福利待遇",
+    "culture": "我们的文化"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "取得联系",
+    "description": "有问题？我们很乐意听取您的意见。给我们发送消息，我们会尽快回复。",
+    "form": {
+      "name": "您的姓名",
+      "email": "电子邮箱",
+      "phone": "电话号码",
+      "subject": "主题",
+      "message": "您的留言",
+      "send": "发送消息",
+      "sending": "发送中...",
+      "success": "消息发送成功！",
+      "error": "发送失败，请重试。"
+    },
+    "info": {
+      "address": "地址",
+      "phone": "电话",
+      "email": "邮箱",
+      "hours": "营业时间"
+    }
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "retry": "重试",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "search": "搜索",
+    "filter": "筛选",
+    "all": "全部",
+    "viewMore": "查看更多"
+  }
+}
