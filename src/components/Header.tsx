@@ -5,11 +5,28 @@ import { Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { EditableText, EditableImage } from "@/components/front-edit";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { t } = useTranslation();
-  const { companyName, tagline, logoUrl } = useSiteSettings();
+  const { t, i18n } = useTranslation();
+  const { companyName, tagline, logoUrl, settings } = useSiteSettings();
+  const queryClient = useQueryClient();
+
+  const handleUpdate = () => {
+    queryClient.invalidateQueries({ queryKey: ['site-settings'] });
+  };
+
+  const getMultilingualValue = (key: string) => {
+    const setting = settings?.find(s => s.setting_key === key);
+    return {
+      en: setting?.value_en || '',
+      la: setting?.value_la || '',
+      th: setting?.value_th || '',
+      zh: setting?.value_zh || '',
+    };
+  };
 
   const navigation = [
     { name: t('nav.home'), href: "/" },
@@ -45,20 +62,38 @@ export const Header = () => {
       <nav className="bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container flex items-center justify-between py-4">
           <Link to="/" className="flex items-center gap-3">
-            {logoUrl ? (
-              <img src={logoUrl} alt={companyName || 'Logo'} className="w-12 h-12 object-contain rounded-md" />
-            ) : (
-              <div className="w-12 h-12 bg-primary rounded-md flex items-center justify-center">
-                <span className="font-display text-2xl text-primary-foreground">
-                  {(companyName || 'LS').substring(0, 2).toUpperCase()}
-                </span>
-              </div>
-            )}
+            <EditableImage
+              settingKey="logo"
+              currentUrl={logoUrl}
+              onUpdate={handleUpdate}
+            >
+              {logoUrl ? (
+                <img src={logoUrl} alt={companyName || 'Logo'} className="w-12 h-12 object-contain rounded-md" />
+              ) : (
+                <div className="w-12 h-12 bg-primary rounded-md flex items-center justify-center">
+                  <span className="font-display text-2xl text-primary-foreground">
+                    {(companyName || 'LS').substring(0, 2).toUpperCase()}
+                  </span>
+                </div>
+              )}
+            </EditableImage>
             <div>
-              <span className="font-display text-2xl text-foreground tracking-wider">
-                {companyName || 'LSTD'}
-              </span>
-              <p className="text-xs text-muted-foreground -mt-1">{tagline || t('header.tagline')}</p>
+              <EditableText
+                settingKey="company_name"
+                currentValue={getMultilingualValue('company_name')}
+                onUpdate={handleUpdate}
+              >
+                <span className="font-display text-2xl text-foreground tracking-wider">
+                  {companyName || 'LSTD'}
+                </span>
+              </EditableText>
+              <EditableText
+                settingKey="tagline"
+                currentValue={getMultilingualValue('tagline')}
+                onUpdate={handleUpdate}
+              >
+                <p className="text-xs text-muted-foreground -mt-1">{tagline || t('header.tagline')}</p>
+              </EditableText>
             </div>
           </Link>
 
