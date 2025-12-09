@@ -2,15 +2,42 @@ import { ArrowRight, Building2, MapPin, Banknote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
-const stats = [
-  { icon: Building2, value: "25+", labelKey: "experience" },
-  { icon: MapPin, value: "18", labelKey: "certifications" },
-  { icon: Banknote, value: "10M+", labelKey: "professionals" },
-];
+const iconMap = {
+  experience: Building2,
+  certifications: MapPin,
+  professionals: Banknote,
+};
 
 export const Hero = () => {
   const { t } = useTranslation();
+  const { getSetting, isLoading } = useSiteSettings();
+
+  // Get dynamic values from settings, fallback to translations
+  const badge = getSetting('hero_badge') || t('hero.badge');
+  const title1 = getSetting('hero_title1') || t('hero.title1');
+  const title2 = getSetting('hero_title2') || t('hero.title2');
+  const title3 = getSetting('hero_title3') || t('hero.title3');
+  const subtitle = getSetting('hero_subtitle') || t('hero.subtitle');
+
+  const stats = [
+    { 
+      icon: Building2, 
+      value: getSetting('hero_stat1_value') || "25+", 
+      label: getSetting('hero_stat1_label') || t('hero.stats.experience')
+    },
+    { 
+      icon: MapPin, 
+      value: getSetting('hero_stat2_value') || "18", 
+      label: getSetting('hero_stat2_label') || t('hero.stats.certifications')
+    },
+    { 
+      icon: Banknote, 
+      value: getSetting('hero_stat3_value') || "10M+", 
+      label: getSetting('hero_stat3_label') || t('hero.stats.professionals')
+    },
+  ];
 
   return (
     <section className="relative min-h-screen flex items-center hero-gradient pt-32">
@@ -26,19 +53,19 @@ export const Hero = () => {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in">
             <Building2 className="w-4 h-4" />
-            {t('hero.badge')}
+            {badge}
           </div>
           
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-background leading-none mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            {t('hero.title1')}
+            {title1}
             <br />
-            <span className="text-primary">{t('hero.title2')}</span>
+            <span className="text-primary">{title2}</span>
             <br />
-            {t('hero.title3')}
+            {title3}
           </h1>
           
           <p className="text-lg md:text-xl text-background/70 max-w-xl mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            {t('hero.subtitle')}
+            {subtitle}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.3s" }}>
@@ -56,11 +83,11 @@ export const Hero = () => {
           </div>
           
           <div className="grid grid-cols-3 gap-8 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            {stats.map((stat) => (
-              <div key={stat.labelKey} className="text-center sm:text-left">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center sm:text-left">
                 <stat.icon className="w-6 h-6 text-primary mb-2 mx-auto sm:mx-0" />
                 <div className="font-display text-3xl md:text-4xl text-background">{stat.value}</div>
-                <div className="text-sm text-background/60">{t(`hero.stats.${stat.labelKey}`)}</div>
+                <div className="text-sm text-background/60">{stat.label}</div>
               </div>
             ))}
           </div>
