@@ -1,49 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import { PageLayout } from '@/components/layout/PageLayout';
-import { Briefcase, MapPin, Clock, ArrowRight, Heart, Users, Zap, Coffee } from 'lucide-react';
+import { MapPin, Clock, ArrowRight, Heart, Users, Zap, Coffee, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-
-const openPositions = [
-  {
-    id: 1,
-    title: 'Senior Safety Trainer',
-    location: 'Vientiane, Laos',
-    type: 'Full-time',
-    department: 'Training',
-  },
-  {
-    id: 2,
-    title: 'Safety Consultant',
-    location: 'Remote',
-    type: 'Full-time',
-    department: 'Consulting',
-  },
-  {
-    id: 3,
-    title: 'Training Coordinator',
-    location: 'Vientiane, Laos',
-    type: 'Full-time',
-    department: 'Operations',
-  },
-  {
-    id: 4,
-    title: 'Marketing Specialist',
-    location: 'Vientiane, Laos',
-    type: 'Part-time',
-    department: 'Marketing',
-  },
-];
+import { useCareers } from '@/hooks/useCareers';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const benefits = [
-  { icon: Heart, title: 'Health Insurance', description: 'Comprehensive medical coverage for you and family' },
-  { icon: Users, title: 'Team Environment', description: 'Collaborative and supportive workplace culture' },
-  { icon: Zap, title: 'Growth Opportunities', description: 'Professional development and career advancement' },
-  { icon: Coffee, title: 'Work-Life Balance', description: 'Flexible hours and generous leave policies' },
+  { icon: Heart, titleKey: 'healthInsurance', descKey: 'healthInsuranceDesc' },
+  { icon: Users, titleKey: 'teamEnvironment', descKey: 'teamEnvironmentDesc' },
+  { icon: Zap, titleKey: 'growthOpportunities', descKey: 'growthOpportunitiesDesc' },
+  { icon: Coffee, titleKey: 'workLifeBalance', descKey: 'workLifeBalanceDesc' },
 ];
 
 export const Careers = () => {
   const { t } = useTranslation();
+  const { careers, isLoading } = useCareers();
+  const { companyName } = useSiteSettings();
 
   return (
     <PageLayout>
@@ -69,11 +42,11 @@ export const Careers = () => {
             {t('careers.benefits')}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="bg-card border border-border rounded-lg p-6 text-center">
+            {benefits.map(({ icon: Icon, titleKey, descKey }) => (
+              <div key={titleKey} className="bg-card border border-border rounded-lg p-6 text-center">
                 <Icon className="w-10 h-10 text-primary mx-auto mb-4" />
-                <h3 className="font-medium text-foreground mb-2">{title}</h3>
-                <p className="text-sm text-muted-foreground">{description}</p>
+                <h3 className="font-medium text-foreground mb-2">{t(`careers.${titleKey}`)}</h3>
+                <p className="text-sm text-muted-foreground">{t(`careers.${descKey}`)}</p>
               </div>
             ))}
           </div>
@@ -86,37 +59,59 @@ export const Careers = () => {
           <h2 className="font-display text-3xl text-foreground mb-8">
             {t('careers.openPositions')}
           </h2>
-          <div className="space-y-4">
-            {openPositions.map((position) => (
-              <div
-                key={position.id}
-                className="bg-card border border-border rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-primary transition-colors"
-              >
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <h3 className="font-display text-xl text-foreground">
-                      {position.title}
-                    </h3>
-                    <Badge variant="secondary">{position.department}</Badge>
+          
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : careers.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground bg-card border border-border rounded-lg">
+              {t('careers.noOpenings')}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {careers.map((career) => (
+                <div
+                  key={career.id}
+                  className="bg-card border border-border rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-primary transition-colors"
+                >
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <h3 className="font-display text-xl text-foreground">
+                        {career.title}
+                      </h3>
+                      {career.department && (
+                        <Badge variant="secondary">{career.department}</Badge>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                      {career.location && (
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" />
+                          {career.location}
+                        </span>
+                      )}
+                      {career.employment_type && (
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {career.employment_type}
+                        </span>
+                      )}
+                    </div>
+                    {career.description && (
+                      <p className="text-muted-foreground text-sm mt-2 line-clamp-2">
+                        {career.description}
+                      </p>
+                    )}
                   </div>
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-4 h-4" />
-                      {position.location}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      {position.type}
-                    </span>
-                  </div>
+                  <Button>
+                    {t('careers.applyNow')}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
                 </div>
-                <Button>
-                  {t('careers.applyNow')}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -129,8 +124,7 @@ export const Careers = () => {
               {t('careers.culture')}
             </h2>
             <p className="text-muted-foreground text-lg">
-              At LSTD, we believe in fostering a culture of continuous learning, collaboration, 
-              and dedication to safety excellence. Join us in making workplaces safer around the world.
+              {t('careers.cultureDescription', { company: companyName || 'LSTD' })}
             </p>
           </div>
         </div>
