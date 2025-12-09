@@ -3,20 +3,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
-const courseKeys = ['osha10', 'osha30', 'forklift', 'confined', 'fall', 'hazmat'] as const;
-
-const courseMeta = [
-  { duration: "Nationwide", participants: "24/7 Operations", certification: "Full Service", featured: false },
-  { duration: "All Provinces", participants: "High Capacity", certification: "Full Service", featured: true },
-  { duration: "Major Routes", participants: "Instant Processing", certification: "Technology", featured: false },
-  { duration: "Real-time", participants: "Government Partners", certification: "Analytics", featured: false },
-  { duration: "All Sites", participants: "Expert Team", certification: "Maintenance", featured: false },
-  { duration: "On Demand", participants: "Custom Solutions", certification: "Advisory", featured: false },
-];
+import { useServices } from "@/hooks/useServices";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const CoursesSection = () => {
   const { t } = useTranslation();
+  const { services, isLoading } = useServices();
+
+  // Take first 6 services for homepage display
+  const displayServices = services.slice(0, 6);
 
   return (
     <section id="services" className="py-24 bg-background">
@@ -37,21 +32,37 @@ export const CoursesSection = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {courseKeys.map((key, index) => (
-            <CourseCard
-              key={key}
-              title={t(`courses.list.${key}.title`)}
-              description={t(`courses.list.${key}.description`)}
-              duration={courseMeta[index].duration}
-              participants={courseMeta[index].participants}
-              certification={courseMeta[index].certification}
-              featured={courseMeta[index].featured}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="p-6 rounded-lg border border-border">
+                <Skeleton className="h-6 w-3/4 mb-3" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            ))}
+          </div>
+        ) : displayServices.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {displayServices.map((service, index) => (
+              <CourseCard
+                key={service.id}
+                title={service.title}
+                description={service.description}
+                duration={service.icon || ""}
+                participants=""
+                certification=""
+                featured={index === 1}
+                className="animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 text-muted-foreground mb-12">
+            {t('courses.noServices', 'No services available')}
+          </div>
+        )}
         
         <div className="text-center">
           <Button size="lg" variant="outline" className="group" asChild>
