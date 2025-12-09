@@ -8,113 +8,113 @@
     "careers": "招聘",
     "contact": "联系我们",
     "login": "登录",
-    "bookTraining": "预约培训"
+    "bookTraining": "开始"
   },
   "header": {
     "phone": "(123) 456-7890",
-    "email": "info@lstd.com",
-    "tagline": "认证培训服务商"
+    "email": "info@lstd.la",
+    "tagline": "公共工程与交通解决方案"
   },
   "hero": {
-    "badge": "行业领先的安全培训",
-    "title1": "专业",
-    "title2": "工业",
-    "title3": "培训",
-    "subtitle": "通过认证的安全培训和合规解决方案，为您的员工赋能。保护您的团队安全，确保运营合规。",
-    "viewCourses": "查看课程",
+    "badge": "值得信赖的收入征收合作伙伴",
+    "title1": "公共工程",
+    "title2": "与交通运输",
+    "title3": "解决方案",
+    "subtitle": "为全国公共工程和交通基础设施提供领先的收入征收服务。高效、透明、可靠。",
+    "viewCourses": "我们的服务",
     "requestQuote": "获取报价",
     "stats": {
       "experience": "年经验",
-      "certifications": "项认证",
-      "professionals": "名受训专业人员"
+      "certifications": "覆盖省份",
+      "professionals": "处理交易"
     }
   },
   "courses": {
-    "sectionLabel": "我们的培训项目",
-    "title1": "认证安全",
-    "title2": "培训课程",
-    "description": "从基础安全意识到高级认证，我们提供全面的培训项目，满足您的行业需求。",
-    "viewAll": "查看全部",
-    "duration": "时长",
-    "participants": "参与人数",
-    "certification": "认证",
-    "enroll": "立即报名",
+    "sectionLabel": "我们的核心服务",
+    "title1": "全面的",
+    "title2": "收入解决方案",
+    "description": "从收费站管理到交通费用管理，我们为公共基础设施提供端到端的收入征收服务。",
+    "viewAll": "查看所有服务",
+    "duration": "覆盖范围",
+    "participants": "容量",
+    "certification": "服务类型",
+    "enroll": "了解更多",
     "list": {
       "osha10": {
-        "title": "OSHA 10小时通用行业培训",
-        "description": "基础安全培训，涵盖工作场所危害、个人防护装备和OSHA法规。"
+        "title": "收费服务",
+        "description": "为全国高速公路、桥梁和快速路提供全面的收费管理服务。"
       },
       "osha30": {
-        "title": "OSHA 30小时建筑培训",
-        "description": "面向建筑监督员和经理的综合安全培训，涵盖所有主要安全主题。"
+        "title": "交通费用管理",
+        "description": "为公共交通系统和终端提供端到端的费用征收和管理服务。"
       },
       "forklift": {
-        "title": "叉车操作员认证",
-        "description": "完整的叉车培训，包括理论、实际操作和符合OSHA规定的评估。"
+        "title": "电子支付系统",
+        "description": "现代电子收费和无接触支付解决方案，实现无缝交易。"
       },
       "confined": {
-        "title": "受限空间进入",
-        "description": "关于受限空间危害、大气检测和救援程序的培训。"
+        "title": "收入报告与分析",
+        "description": "为政府合作伙伴提供实时报告、分析和透明的财务管理。"
       },
       "fall": {
-        "title": "坠落防护",
-        "description": "全面的坠落危害意识、设备检查和坠落保护系统的正确使用。"
+        "title": "基础设施支持",
+        "description": "为收费站、征收点和支付系统提供技术支持和维护。"
       },
       "hazmat": {
-        "title": "危险物质意识",
-        "description": "为可能接触工作场所危险物质的员工提供的初级培训。"
+        "title": "咨询服务",
+        "description": "为公共工程收入优化和交通费用结构提供专家咨询。"
       }
     }
   },
   "about": {
     "sectionLabel": "关于LSTD",
-    "title1": "您值得信赖的",
-    "title2": "培训合作伙伴",
-    "description": "二十多年来，LSTD一直是工业安全培训和合规解决方案的领先提供商。我们的使命是通过教育、实践培训和持续支持来创建更安全的工作场所。",
+    "title1": "值得信赖的",
+    "title2": "征收合作伙伴",
+    "description": "二十多年来，LSTD一直是公共工程和交通基础设施收入征收服务的领先提供商。我们的使命是确保政府项目的高效、透明和可靠的收入管理。",
     "learnMore": "了解更多",
     "features": {
-      "osha": "OSHA授权培训机构",
-      "certified": "具有现场经验的认证讲师",
-      "flexible": "灵活的时间安排和现场培训",
-      "customized": "为您的行业定制的项目",
-      "bilingual": "多语言培训",
-      "digital": "数字证书和记录管理"
+      "osha": "政府授权服务提供商",
+      "certified": "经验丰富的征收团队",
+      "flexible": "全国覆盖",
+      "customized": "为每个项目定制解决方案",
+      "bilingual": "现代技术集成",
+      "digital": "实时报告与透明度"
     },
     "vision": {
       "title": "我们的愿景",
-      "content": "成为该地区领先的工业安全培训提供商，树立卓越和创新的标准。"
+      "content": "成为该地区领先的公共工程收入征收服务提供商，树立效率、透明度和创新的标准。"
     },
     "mission": {
       "title": "我们的使命",
-      "content": "为组织提供创建安全、合规和高效工作场所所需的知识和技能。"
+      "content": "提供可靠、透明的收入征收服务，支持国家基础设施发展和公共交通系统。"
     },
     "values": {
       "title": "核心价值观",
-      "safety": "安全第一",
+      "safety": "诚信正直",
       "excellence": "追求卓越",
-      "integrity": "诚信正直",
+      "integrity": "透明公开",
       "innovation": "创新进取"
     },
     "history": {
       "title": "我们的历史",
-      "content": "LSTD成立于1998年，从一家小型培训咨询公司发展成为服务多个行业客户的综合安全解决方案提供商。"
+      "content": "LSTD成立于1998年，从一家小型征收机构发展成为服务全国项目的综合公共工程收入解决方案提供商。"
     },
     "team": {
       "title": "管理团队",
-      "content": "我们的领导团队在工业安全、培训开发和组织管理方面拥有数十年的综合经验。"
+      "content": "我们的领导团队在公共行政、财务管理和基础设施发展方面拥有数十年的综合经验。"
     }
   },
   "cta": {
-    "title1": "准备好提升",
-    "title2": "团队安全了吗？",
-    "description": "联系我们的培训专家，讨论您的需求，为您的组织制定定制培训计划。",
+    "title1": "准备好与我们",
+    "title2": "合作了吗？",
+    "description": "联系我们的专家，讨论您的公共工程收入征收需求，为您的项目制定定制解决方案。",
     "schedule": "预约咨询",
     "call": "致电"
   },
   "footer": {
-    "description": "为各种规模的企业提供专业的工业安全培训和合规解决方案。",
+    "description": "为全国公共工程和交通基础设施提供专业的收入征收服务。",
     "quickLinks": "快速链接",
-    "popularCourses": "热门课程",
+    "popularCourses": "我们的服务",
     "contactUs": "联系我们",
     "copyright": "版权所有。",
     "privacy": "隐私政策",
@@ -122,8 +122,8 @@
   },
   "projects": {
     "title": "我们的项目",
-    "subtitle": "PPP项目和计划",
-    "description": "探索我们的公私合作项目和塑造工业安全标准的主要举措。",
+    "subtitle": "PPP项目与基础设施",
+    "description": "探索我们的公私合作项目和全国主要基础设施项目。",
     "viewGallery": "查看图库",
     "milestones": "重要里程碑",
     "ongoing": "进行中",
@@ -131,12 +131,12 @@
   },
   "services": {
     "title": "我们的服务",
-    "subtitle": "培训和咨询服务",
-    "description": "根据您组织的需求定制的全面工业安全解决方案。",
+    "subtitle": "收入征收解决方案",
+    "description": "为公共工程和交通项目量身定制的全面收入征收和管理服务。",
     "categories": {
-      "training": "培训项目",
-      "consulting": "安全咨询",
-      "auditing": "合规审计",
+      "training": "收费服务",
+      "consulting": "费用管理",
+      "auditing": "财务报告",
       "custom": "定制解决方案"
     }
   },
@@ -152,7 +152,7 @@
   "careers": {
     "title": "招聘",
     "subtitle": "加入我们的团队",
-    "description": "在LSTD发展您的职业生涯，帮助我们在世界各地创建更安全的工作场所。",
+    "description": "在LSTD发展您的职业生涯，帮助我们支持国家基础设施发展。",
     "openPositions": "空缺职位",
     "applyNow": "立即申请",
     "benefits": "福利待遇",
