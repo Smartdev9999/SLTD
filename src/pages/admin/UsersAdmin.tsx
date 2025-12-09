@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { UserPlus, Shield, Trash2 } from 'lucide-react';
+import { UserPlus, Shield, Trash2, Plus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { z } from 'zod';
 
 interface Profile {
   id: string;
@@ -23,14 +25,28 @@ interface UserRole {
   role: 'admin' | 'editor';
 }
 
+const createUserSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  fullName: z.string().min(2, 'Name must be at least 2 characters'),
+});
+
 const UsersAdmin = () => {
   const { user } = useAuth();
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [userRoles, setUserRoles] = useState<UserRole[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<Profile | null>(null);
   const [selectedRole, setSelectedRole] = useState<'admin' | 'editor'>('editor');
+  
+  // Create user form state
+  const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newFullName, setNewFullName] = useState('');
+  const [newRole, setNewRole] = useState<'admin' | 'editor'>('editor');
+  const [isCreating, setIsCreating] = useState(false);
 
   const fetchData = async () => {
     const [profilesRes, rolesRes] = await Promise.all([
@@ -66,6 +82,50 @@ const UsersAdmin = () => {
     const currentRole = getUserRole(profile.id);
     setSelectedRole(currentRole || 'editor');
     setDialogOpen(true);
+  };
+
+  const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const result = createUserSchema.safeParse({ 
+      email: newEmail, 
+      password: newPassword, 
+      fullName: newFullName 
+    });
+    
+    if (!result.success) {
+      toast.error(result.error.errors[0].message);
+      return;
+    }
+
+    setIsCreating(true);
+    
+    try {
+      // Call edge function to create user (admin only operation)
+      const { data, error } = await supabase.functions.invoke('create-user', {
+        body: { 
+          email: newEmail, 
+          password: newPassword, 
+          fullName: newFullName,
+          role: newRole
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success('User created successfully');
+      setCreateDialogOpen(false);
+      setNewEmail('');
+      setNewPassword('');
+      setNewFullName('');
+      setNewRole('editor');
+      fetchData();
+    } catch (error: any) {
+      console.error('Error creating user:', error);
+      toast.error(error.message || 'Failed to create user');
+    } finally {
+      setIsCreating(false);
+    }
   };
 
   const handleAssignRole = async () => {
@@ -128,9 +188,15 @@ const UsersAdmin = () => {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-display">Users & Roles</h1>
-          <p className="text-muted-foreground">Manage user roles and permissions</p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-display">Users & Roles</h1>
+            <p className="text-muted-foreground">Manage user roles and permissions</p>
+          </div>
+          <Button onClick={() => setCreateDialogOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Create User
+          </Button>
         </div>
 
         {loading ? (
@@ -187,6 +253,7 @@ const UsersAdmin = () => {
           </div>
         )}
 
+        {/* Assign Role Dialog */}
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogContent>
             <DialogHeader>
@@ -213,6 +280,70 @@ const UsersAdmin = () => {
                 <Button onClick={handleAssignRole}>Assign Role</Button>
               </div>
             </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Create User Dialog */}
+        <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create New User</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleCreateUser} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="new-name">Full Name</Label>
+                <Input
+                  id="new-name"
+                  type="text"
+                  placeholder="John Doe"
+                  value={newFullName}
+                  onChange={(e) => setNewFullName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="new-email">Email</Label>
+                <Input
+                  id="new-email"
+                  type="email"
+                  placeholder="user@example.com"
+                  value={newEmail}
+                  onChange={(e) => setNewEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="new-password">Password</Label>
+                <Input
+                  id="new-password"
+                  type="password"
+                  placeholder="At least 6 characters"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Role</Label>
+                <Select value={newRole} onValueChange={(value: 'admin' | 'editor') => setNewRole(value)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="editor">Editor - Can manage content</SelectItem>
+                    <SelectItem value="admin">Admin - Full access including user management</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button type="button" variant="outline" onClick={() => setCreateDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={isCreating}>
+                  {isCreating ? 'Creating...' : 'Create User'}
+                </Button>
+              </div>
+            </form>
           </DialogContent>
         </Dialog>
       </div>
