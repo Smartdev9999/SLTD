@@ -1,4 +1,4 @@
-import { useState, ReactNode } from 'react';
+import { useState, useRef, ReactNode } from 'react';
 import { Pencil, Check, X, Loader2 } from 'lucide-react';
 import { useFrontEdit } from '@/contexts/FrontEditContext';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { translateFromEnglish } from '@/services/translationService';
+import { translateToOtherLanguages, detectChangedLanguage, LanguageKey } from '@/services/translationService';
 
 interface EditableTableTextProps {
   children: ReactNode;
@@ -46,19 +46,36 @@ export const EditableTableText = ({
   const [values, setValues] = useState(currentValue);
   const [saving, setSaving] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
+  const originalValues = useRef(currentValue);
+
+  const handleOpenEdit = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    originalValues.current = currentValue;
+    setValues(currentValue);
+    setIsEditing(true);
+  };
 
   const handleSave = async () => {
     let finalValues = { ...values };
 
-    // Auto-translate if English has content but other languages are empty
-    if (values.en.trim() && (!values.la.trim() || !values.th.trim() || !values.zh.trim())) {
+    // Detect which language changed
+    const changedLang = detectChangedLanguage(originalValues.current, values);
+
+    if (changedLang && values[changedLang].trim()) {
+      // One language was edited - translate to all others
       setIsTranslating(true);
       try {
-        const result = await translateFromEnglish(values.en);
-        if (!values.la.trim() && result.translations.la) finalValues.la = result.translations.la;
-        if (!values.th.trim() && result.translations.th) finalValues.th = result.translations.th;
-        if (!values.zh.trim() && result.translations.zh) finalValues.zh = result.translations.zh;
-        setValues(finalValues);
+        const result = await translateToOtherLanguages(values[changedLang], changedLang);
+        if (result.success) {
+          // Apply translations to all languages
+          (['en', 'la', 'th', 'zh'] as LanguageKey[]).forEach(lang => {
+            if (result.translations[lang]) {
+              finalValues[lang] = result.translations[lang];
+            }
+          });
+          setValues(finalValues);
+        }
       } catch (error) {
         console.error('Translation error:', error);
       } finally {
@@ -103,11 +120,7 @@ export const EditableTableText = ({
     <>
       <span
         className={`relative cursor-pointer group inline-block ${className}`}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setIsEditing(true);
-        }}
+        onClick={handleOpenEdit}
       >
         <span className="relative">
           {children}
