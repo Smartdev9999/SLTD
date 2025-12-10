@@ -91,11 +91,11 @@ export const EditableTableText = ({
       >
         <span className="relative">
           {children}
-          <span className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-primary-foreground rounded-full p-1 z-10">
+          <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-1 shadow-lg z-10 opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-200">
             <Pencil className="w-3 h-3" />
           </span>
         </span>
-        <span className="absolute inset-0 border-2 border-dashed border-primary/50 rounded pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+        <span className="absolute inset-0 border-2 border-dashed border-primary/40 rounded pointer-events-none group-hover:border-primary group-hover:bg-primary/5 transition-all duration-200" />
       </span>
 
       <Dialog open={isEditing} onOpenChange={setIsEditing}>

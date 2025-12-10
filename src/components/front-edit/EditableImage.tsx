@@ -104,12 +104,12 @@ export const EditableImage = ({
         onClick={() => setIsEditing(true)}
       >
         {children}
-        <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded">
-          <div className="bg-primary text-primary-foreground rounded-full p-2">
+        <div className="absolute inset-0 bg-primary/10 group-hover:bg-primary/20 transition-all duration-200 flex items-center justify-center rounded">
+          <div className="bg-primary text-primary-foreground rounded-full p-2 shadow-lg opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-200">
             <Pencil className="w-5 h-5" />
           </div>
         </div>
-        <span className="absolute inset-0 border-2 border-dashed border-primary/50 rounded pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+        <span className="absolute inset-0 border-2 border-dashed border-primary/40 rounded pointer-events-none group-hover:border-primary transition-all duration-200" />
       </div>
 
       <Dialog open={isEditing} onOpenChange={setIsEditing}>
