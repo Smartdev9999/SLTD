@@ -288,9 +288,21 @@ const ProjectsAdmin = () => {
               <Card key={item.id}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <div className="flex items-center gap-4">
-                    {item.image_url && (
-                      <img src={item.image_url} alt="" className="h-16 w-24 object-cover rounded" />
-                    )}
+                    <div className="h-16 w-24 bg-muted rounded flex items-center justify-center overflow-hidden flex-shrink-0">
+                      {item.image_url ? (
+                        <img 
+                          src={item.image_url} 
+                          alt="" 
+                          className="h-full w-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.parentElement!.innerHTML = '<span class="text-xs text-muted-foreground">No image</span>';
+                          }}
+                        />
+                      ) : (
+                        <span className="text-xs text-muted-foreground">No image</span>
+                      )}
+                    </div>
                     <div>
                       <CardTitle className="text-lg">{item.title_en}</CardTitle>
                       <p className="text-sm text-muted-foreground">

@@ -273,11 +273,15 @@ const GalleryAdmin = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {gallery.map((item) => (
               <Card key={item.id} className="overflow-hidden">
-                <div className="aspect-video relative">
+                <div className="aspect-video relative bg-muted">
                   <img 
                     src={item.image_url} 
                     alt={item.title_en} 
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-full flex items-center justify-center"><span class="text-sm text-muted-foreground">Image not found</span></div>';
+                    }}
                   />
                   {item.featured && (
                     <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">

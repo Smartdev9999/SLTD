@@ -135,15 +135,15 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
               </SidebarGroup>
             )}
 
-            <div className="mt-auto p-4 border-t space-y-3">
+            <div className="mt-auto p-4 border-t border-border/50 space-y-3">
               <Link to="/">
-                <Button variant="outline" size="sm" className="w-full gap-2">
+                <Button variant="secondary" size="sm" className="w-full gap-2">
                   <Globe className="h-4 w-4" />
                   View Website
                 </Button>
               </Link>
-              <div className="text-sm text-muted-foreground">{user.email}</div>
-              <Button variant="outline" size="sm" onClick={handleSignOut} className="w-full">
+              <div className="text-sm text-muted-foreground truncate">{user.email}</div>
+              <Button variant="ghost" size="sm" onClick={handleSignOut} className="w-full text-muted-foreground hover:text-foreground">
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
               </Button>
