@@ -3,16 +3,11 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
-
-const iconMap = {
-  experience: Building2,
-  certifications: MapPin,
-  professionals: Banknote,
-};
+import { EditableText } from "@/components/front-edit/EditableText";
 
 export const Hero = () => {
   const { t } = useTranslation();
-  const { getSetting, isLoading } = useSiteSettings();
+  const { getSetting, getSettingAllLanguages, refetch } = useSiteSettings();
 
   // Get dynamic values from settings, fallback to translations
   const badge = getSetting('hero_badge') || t('hero.badge');
@@ -24,20 +19,36 @@ export const Hero = () => {
   const stats = [
     { 
       icon: Building2, 
+      valueKey: 'hero_stat1_value',
+      labelKey: 'hero_stat1_label',
       value: getSetting('hero_stat1_value') || "25+", 
       label: getSetting('hero_stat1_label') || t('hero.stats.experience')
     },
     { 
       icon: MapPin, 
+      valueKey: 'hero_stat2_value',
+      labelKey: 'hero_stat2_label',
       value: getSetting('hero_stat2_value') || "18", 
       label: getSetting('hero_stat2_label') || t('hero.stats.certifications')
     },
     { 
       icon: Banknote, 
+      valueKey: 'hero_stat3_value',
+      labelKey: 'hero_stat3_label',
       value: getSetting('hero_stat3_value') || "10M+", 
       label: getSetting('hero_stat3_label') || t('hero.stats.professionals')
     },
   ];
+
+  const getEditableValues = (key: string, fallback: string) => {
+    const allLangs = getSettingAllLanguages(key);
+    return {
+      en: allLangs?.en || fallback,
+      la: allLangs?.la || fallback,
+      th: allLangs?.th || fallback,
+      zh: allLangs?.zh || fallback,
+    };
+  };
 
   return (
     <section className="relative min-h-screen flex items-center hero-gradient pt-32">
@@ -53,19 +64,52 @@ export const Hero = () => {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in">
             <Building2 className="w-4 h-4" />
-            {badge}
+            <EditableText
+              settingKey="hero_badge"
+              currentValue={getEditableValues('hero_badge', t('hero.badge'))}
+              onUpdate={refetch}
+            >
+              {badge}
+            </EditableText>
           </div>
           
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-background leading-none mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            {title1}
+            <EditableText
+              settingKey="hero_title1"
+              currentValue={getEditableValues('hero_title1', t('hero.title1'))}
+              onUpdate={refetch}
+            >
+              {title1}
+            </EditableText>
             <br />
-            <span className="text-primary">{title2}</span>
+            <span className="text-primary">
+              <EditableText
+                settingKey="hero_title2"
+                currentValue={getEditableValues('hero_title2', t('hero.title2'))}
+                onUpdate={refetch}
+              >
+                {title2}
+              </EditableText>
+            </span>
             <br />
-            {title3}
+            <EditableText
+              settingKey="hero_title3"
+              currentValue={getEditableValues('hero_title3', t('hero.title3'))}
+              onUpdate={refetch}
+            >
+              {title3}
+            </EditableText>
           </h1>
           
           <p className="text-lg md:text-xl text-background/70 max-w-xl mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            {subtitle}
+            <EditableText
+              settingKey="hero_subtitle"
+              currentValue={getEditableValues('hero_subtitle', t('hero.subtitle'))}
+              onUpdate={refetch}
+              multiline
+            >
+              {subtitle}
+            </EditableText>
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.3s" }}>
@@ -86,8 +130,24 @@ export const Hero = () => {
             {stats.map((stat, index) => (
               <div key={index} className="text-center sm:text-left">
                 <stat.icon className="w-6 h-6 text-primary mb-2 mx-auto sm:mx-0" />
-                <div className="font-display text-3xl md:text-4xl text-background">{stat.value}</div>
-                <div className="text-sm text-background/60">{stat.label}</div>
+                <div className="font-display text-3xl md:text-4xl text-background">
+                  <EditableText
+                    settingKey={stat.valueKey}
+                    currentValue={getEditableValues(stat.valueKey, stat.value)}
+                    onUpdate={refetch}
+                  >
+                    {stat.value}
+                  </EditableText>
+                </div>
+                <div className="text-sm text-background/60">
+                  <EditableText
+                    settingKey={stat.labelKey}
+                    currentValue={getEditableValues(stat.labelKey, stat.label)}
+                    onUpdate={refetch}
+                  >
+                    {stat.label}
+                  </EditableText>
+                </div>
               </div>
             ))}
           </div>

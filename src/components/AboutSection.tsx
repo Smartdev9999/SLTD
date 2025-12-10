@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { useAboutContent } from "@/hooks/useAboutContent";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EditableText } from "@/components/front-edit/EditableText";
 
 const fallbackFeatureKeys = ['osha', 'certified', 'flexible', 'customized', 'bilingual', 'digital'] as const;
 
 export const AboutSection = () => {
-  const { t } = useTranslation();
-  const { sections, isLoading, getSection } = useAboutContent();
-  const { getSetting } = useSiteSettings();
+  const { t, i18n } = useTranslation();
+  const { sections, isLoading, getSection, refetch: refetchAbout } = useAboutContent();
+  const { getSetting, getSettingAllLanguages, refetch: refetchSettings } = useSiteSettings();
 
   // Get main about content
   const mainContent = getSection('home_main');
@@ -22,6 +23,16 @@ export const AboutSection = () => {
   // Get years experience from settings
   const yearsValue = getSetting('hero_stat1_value') || "25+";
   const yearsLabel = getSetting('hero_stat1_label') || t('hero.stats.experience');
+
+  const getEditableValues = (key: string, fallback: string) => {
+    const allLangs = getSettingAllLanguages(key);
+    return {
+      en: allLangs?.en || fallback,
+      la: allLangs?.la || fallback,
+      th: allLangs?.th || fallback,
+      zh: allLangs?.zh || fallback,
+    };
+  };
 
   return (
     <section id="about" className="py-24 bg-muted">
@@ -34,8 +45,24 @@ export const AboutSection = () => {
               </div>
             </div>
             <div className="absolute -bottom-8 -right-8 bg-primary text-primary-foreground p-6 rounded-lg shadow-xl">
-              <div className="font-display text-5xl">{yearsValue}</div>
-              <div className="text-primary-foreground/80 text-sm">{yearsLabel}</div>
+              <div className="font-display text-5xl">
+                <EditableText
+                  settingKey="hero_stat1_value"
+                  currentValue={getEditableValues('hero_stat1_value', yearsValue)}
+                  onUpdate={refetchSettings}
+                >
+                  {yearsValue}
+                </EditableText>
+              </div>
+              <div className="text-primary-foreground/80 text-sm">
+                <EditableText
+                  settingKey="hero_stat1_label"
+                  currentValue={getEditableValues('hero_stat1_label', yearsLabel)}
+                  onUpdate={refetchSettings}
+                >
+                  {yearsLabel}
+                </EditableText>
+              </div>
             </div>
           </div>
           

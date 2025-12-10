@@ -20,7 +20,7 @@ interface AboutContent {
 export const useAboutContent = () => {
   const { i18n } = useTranslation();
 
-  const { data: sections, isLoading, error } = useQuery({
+  const { data: sections, isLoading, error, refetch } = useQuery({
     queryKey: ['about-content'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -58,6 +58,7 @@ export const useAboutContent = () => {
     sections,
     isLoading,
     error,
+    refetch,
     getSection,
     getLocalizedField,
   };

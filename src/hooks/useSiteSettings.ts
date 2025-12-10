@@ -50,6 +50,17 @@ export const useSiteSettings = () => {
     return setting?.image_url || null;
   };
 
+  const getSettingAllLanguages = (key: string) => {
+    const setting = settings?.find(s => s.setting_key === key);
+    if (!setting) return null;
+    return {
+      en: setting.value_en || '',
+      la: setting.value_la || '',
+      th: setting.value_th || '',
+      zh: setting.value_zh || '',
+    };
+  };
+
   return {
     settings,
     isLoading,
@@ -57,6 +68,7 @@ export const useSiteSettings = () => {
     refetch,
     getSetting,
     getSettingImage,
+    getSettingAllLanguages,
     companyName: getSetting('company_name'),
     tagline: getSetting('tagline'),
     logoUrl: getSettingImage('logo'),
