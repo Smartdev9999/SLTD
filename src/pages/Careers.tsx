@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useCareers } from '@/hooks/useCareers';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { EditableTableText } from '@/components/front-edit/EditableTableText';
+import heroImage from '@/assets/hero-careers.jpg';
 
 const benefits = [
   { icon: Heart, titleKey: 'healthInsurance', descKey: 'healthInsuranceDesc' },
@@ -23,32 +24,42 @@ export const Careers = () => {
 
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <section className="py-16 bg-muted">
-        <div className="container">
-          <p className="text-primary font-medium text-sm uppercase tracking-wider mb-2">
+      {/* Hero Section - Full Width with Background Image */}
+      <section 
+        className="relative min-h-[60vh] flex items-center justify-center"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/50" />
+        <div className="container relative z-10 text-center py-20">
+          <p className="text-primary font-medium text-sm uppercase tracking-wider mb-4">
             {t('careers.subtitle')}
           </p>
-          <h1 className="font-display text-4xl md:text-6xl text-foreground mb-6">
+          <h1 className="font-display text-5xl md:text-7xl text-background mb-6">
             {t('careers.title')}
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl">
+          <p className="text-background/80 text-lg max-w-2xl mx-auto">
             {t('careers.description')}
           </p>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-16">
+      {/* Benefits - Clean Grid */}
+      <section className="py-20">
         <div className="container">
-          <h2 className="font-display text-3xl text-foreground mb-8 text-center">
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-12 text-center">
             {t('careers.benefits')}
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map(({ icon: Icon, titleKey, descKey }) => (
-              <div key={titleKey} className="bg-card border border-border rounded-lg p-6 text-center">
-                <Icon className="w-10 h-10 text-primary mx-auto mb-4" />
-                <h3 className="font-medium text-foreground mb-2">{t(`careers.${titleKey}`)}</h3>
+              <div key={titleKey} className="text-center group">
+                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                  <Icon className="w-10 h-10 text-primary" />
+                </div>
+                <h3 className="font-display text-xl text-foreground mb-2">{t(`careers.${titleKey}`)}</h3>
                 <p className="text-sm text-muted-foreground">{t(`careers.${descKey}`)}</p>
               </div>
             ))}
@@ -56,33 +67,33 @@ export const Careers = () => {
         </div>
       </section>
 
-      {/* Open Positions */}
-      <section className="py-16 bg-muted">
+      {/* Open Positions - Clean Cards */}
+      <section className="py-20 bg-muted">
         <div className="container">
-          <h2 className="font-display text-3xl text-foreground mb-8">
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-12">
             {t('careers.openPositions')}
           </h2>
           
           {isLoading ? (
-            <div className="flex justify-center py-12">
+            <div className="flex justify-center py-16">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
           ) : careers.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground bg-card border border-border rounded-lg">
+            <div className="text-center py-16 text-muted-foreground">
               {t('careers.noOpenings')}
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-6">
               {careers.map((career) => {
                 const raw = getRawCareer(career.id);
                 return (
                   <div
                     key={career.id}
-                    className="bg-card border border-border rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-primary transition-colors"
+                    className="bg-card rounded-lg p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-lg transition-shadow"
                   >
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2 mb-2">
-                        <h3 className="font-display text-xl text-foreground">
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <h3 className="font-display text-2xl text-foreground">
                           {raw ? (
                             <EditableTableText
                               tableName="careers"
@@ -103,25 +114,25 @@ export const Careers = () => {
                           )}
                         </h3>
                         {career.department && (
-                          <Badge variant="secondary">{career.department}</Badge>
+                          <Badge variant="secondary" className="text-xs">{career.department}</Badge>
                         )}
                       </div>
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-4">
                         {career.location && (
-                          <span className="flex items-center gap-1">
+                          <span className="flex items-center gap-2">
                             <MapPin className="w-4 h-4" />
                             {career.location}
                           </span>
                         )}
                         {career.employment_type && (
-                          <span className="flex items-center gap-1">
+                          <span className="flex items-center gap-2">
                             <Clock className="w-4 h-4" />
                             {career.employment_type}
                           </span>
                         )}
                       </div>
                       {career.description && (
-                        <p className="text-muted-foreground text-sm mt-2 line-clamp-2">
+                        <p className="text-muted-foreground line-clamp-2">
                           {raw ? (
                             <EditableTableText
                               tableName="careers"
@@ -144,7 +155,7 @@ export const Careers = () => {
                         </p>
                       )}
                     </div>
-                    <Button>
+                    <Button size="lg" className="shrink-0">
                       {t('careers.applyNow')}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -156,15 +167,17 @@ export const Careers = () => {
         </div>
       </section>
 
-      {/* Culture Section */}
-      <section className="py-16">
+      {/* Culture Section - Minimal */}
+      <section className="py-20">
         <div className="container">
-          <div className="text-center max-w-2xl mx-auto">
-            <Users className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h2 className="font-display text-3xl text-foreground mb-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8">
+              <Users className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground mb-6">
               {t('careers.culture')}
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               {t('careers.cultureDescription', { company: companyName || 'LSTD' })}
             </p>
           </div>
