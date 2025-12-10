@@ -4,6 +4,7 @@ import { ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useServices } from '@/hooks/useServices';
+import { EditableTableText } from '@/components/front-edit/EditableTableText';
 import dynamicIconImports from 'lucide-react/dynamicIconImports';
 import { lazy, Suspense } from 'react';
 import type { LucideProps } from 'lucide-react';
@@ -23,7 +24,9 @@ const DynamicIcon = ({ name, ...props }: DynamicIconProps) => {
 
 export const Services = () => {
   const { t } = useTranslation();
-  const { services, isLoading } = useServices();
+  const { services, rawServices, isLoading, refetch } = useServices();
+
+  const getRawService = (id: string) => rawServices.find(s => s.id === id);
 
   return (
     <PageLayout>
@@ -55,31 +58,69 @@ export const Services = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
-              {services.map((service) => (
-                <div
-                  key={service.id}
-                  className="bg-card border border-border rounded-lg p-8 hover:border-primary transition-colors"
-                >
-                  {service.icon && (
-                    <DynamicIcon 
-                      name={service.icon as keyof typeof dynamicIconImports} 
-                      className="w-12 h-12 text-primary mb-6" 
-                    />
-                  )}
-                  <h2 className="font-display text-2xl text-foreground mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    {service.description}
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link to="/contact">
-                      {t('common.viewMore')}
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  </Button>
-                </div>
-              ))}
+              {services.map((service) => {
+                const raw = getRawService(service.id);
+                return (
+                  <div
+                    key={service.id}
+                    className="bg-card border border-border rounded-lg p-8 hover:border-primary transition-colors"
+                  >
+                    {service.icon && (
+                      <DynamicIcon 
+                        name={service.icon as keyof typeof dynamicIconImports} 
+                        className="w-12 h-12 text-primary mb-6" 
+                      />
+                    )}
+                    <h2 className="font-display text-2xl text-foreground mb-4">
+                      {raw ? (
+                        <EditableTableText
+                          tableName="services"
+                          recordId={service.id}
+                          fieldPrefix="title"
+                          currentValue={{
+                            en: raw.title_en || '',
+                            la: raw.title_la || '',
+                            th: raw.title_th || '',
+                            zh: raw.title_zh || '',
+                          }}
+                          onUpdate={refetch}
+                        >
+                          {service.title}
+                        </EditableTableText>
+                      ) : (
+                        service.title
+                      )}
+                    </h2>
+                    <p className="text-muted-foreground mb-6">
+                      {raw ? (
+                        <EditableTableText
+                          tableName="services"
+                          recordId={service.id}
+                          fieldPrefix="description"
+                          currentValue={{
+                            en: raw.description_en || '',
+                            la: raw.description_la || '',
+                            th: raw.description_th || '',
+                            zh: raw.description_zh || '',
+                          }}
+                          onUpdate={refetch}
+                          multiline
+                        >
+                          {service.description}
+                        </EditableTableText>
+                      ) : (
+                        service.description
+                      )}
+                    </p>
+                    <Button variant="outline" asChild>
+                      <Link to="/contact">
+                        {t('common.viewMore')}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

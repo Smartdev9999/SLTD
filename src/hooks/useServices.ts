@@ -59,6 +59,7 @@ export const useServices = () => {
 
   return {
     services: localizedServices,
+    rawServices: services || [],
     isLoading,
     error,
     refetch,

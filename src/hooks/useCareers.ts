@@ -26,7 +26,7 @@ interface Career {
 export const useCareers = () => {
   const { i18n } = useTranslation();
 
-  const { data: careers, isLoading, error } = useQuery({
+  const { data: careers, isLoading, error, refetch } = useQuery({
     queryKey: ['careers-public'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -72,7 +72,9 @@ export const useCareers = () => {
 
   return {
     careers: localizedCareers,
+    rawCareers: careers || [],
     isLoading,
     error,
+    refetch,
   };
 };

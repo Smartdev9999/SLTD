@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCareers } from '@/hooks/useCareers';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
+import { EditableTableText } from '@/components/front-edit/EditableTableText';
 
 const benefits = [
   { icon: Heart, titleKey: 'healthInsurance', descKey: 'healthInsuranceDesc' },
@@ -15,8 +16,10 @@ const benefits = [
 
 export const Careers = () => {
   const { t } = useTranslation();
-  const { careers, isLoading } = useCareers();
+  const { careers, rawCareers, isLoading, refetch } = useCareers();
   const { companyName } = useSiteSettings();
+
+  const getRawCareer = (id: string) => rawCareers.find(c => c.id === id);
 
   return (
     <PageLayout>
@@ -70,46 +73,84 @@ export const Careers = () => {
             </div>
           ) : (
             <div className="space-y-4">
-              {careers.map((career) => (
-                <div
-                  key={career.id}
-                  className="bg-card border border-border rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-primary transition-colors"
-                >
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <h3 className="font-display text-xl text-foreground">
-                        {career.title}
-                      </h3>
-                      {career.department && (
-                        <Badge variant="secondary">{career.department}</Badge>
+              {careers.map((career) => {
+                const raw = getRawCareer(career.id);
+                return (
+                  <div
+                    key={career.id}
+                    className="bg-card border border-border rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-primary transition-colors"
+                  >
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <h3 className="font-display text-xl text-foreground">
+                          {raw ? (
+                            <EditableTableText
+                              tableName="careers"
+                              recordId={career.id}
+                              fieldPrefix="title"
+                              currentValue={{
+                                en: raw.title_en || '',
+                                la: raw.title_la || '',
+                                th: raw.title_th || '',
+                                zh: raw.title_zh || '',
+                              }}
+                              onUpdate={refetch}
+                            >
+                              {career.title}
+                            </EditableTableText>
+                          ) : (
+                            career.title
+                          )}
+                        </h3>
+                        {career.department && (
+                          <Badge variant="secondary">{career.department}</Badge>
+                        )}
+                      </div>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                        {career.location && (
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
+                            {career.location}
+                          </span>
+                        )}
+                        {career.employment_type && (
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            {career.employment_type}
+                          </span>
+                        )}
+                      </div>
+                      {career.description && (
+                        <p className="text-muted-foreground text-sm mt-2 line-clamp-2">
+                          {raw ? (
+                            <EditableTableText
+                              tableName="careers"
+                              recordId={career.id}
+                              fieldPrefix="description"
+                              currentValue={{
+                                en: raw.description_en || '',
+                                la: raw.description_la || '',
+                                th: raw.description_th || '',
+                                zh: raw.description_zh || '',
+                              }}
+                              onUpdate={refetch}
+                              multiline
+                            >
+                              {career.description}
+                            </EditableTableText>
+                          ) : (
+                            career.description
+                          )}
+                        </p>
                       )}
                     </div>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      {career.location && (
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {career.location}
-                        </span>
-                      )}
-                      {career.employment_type && (
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          {career.employment_type}
-                        </span>
-                      )}
-                    </div>
-                    {career.description && (
-                      <p className="text-muted-foreground text-sm mt-2 line-clamp-2">
-                        {career.description}
-                      </p>
-                    )}
+                    <Button>
+                      {t('careers.applyNow')}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
                   </div>
-                  <Button>
-                    {t('careers.applyNow')}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
