@@ -22,18 +22,22 @@ export const LanguageSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white"
+        >
           <Globe className="w-4 h-4" />
           <span className="hidden sm:inline">{currentLanguage.flag} {currentLanguage.name}</span>
           <span className="sm:hidden">{currentLanguage.flag}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700">
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
             onClick={() => handleLanguageChange(lang.code)}
-            className={`gap-2 cursor-pointer ${i18n.language === lang.code ? 'bg-accent' : ''}`}
+            className={`gap-2 cursor-pointer text-white hover:bg-slate-700 focus:bg-slate-700 focus:text-white ${i18n.language === lang.code ? 'bg-primary/20 text-primary' : ''}`}
           >
             <span>{lang.flag}</span>
             <span>{lang.name}</span>
