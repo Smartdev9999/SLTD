@@ -23,7 +23,8 @@ import {
   Info,
   Settings,
   LogOut,
-  Wrench
+  Wrench,
+  Image
 } from 'lucide-react';
 
 const menuItems = [
@@ -33,6 +34,7 @@ const menuItems = [
   { title: 'Services', url: '/admin/services', icon: Wrench },
   { title: 'Careers', url: '/admin/careers', icon: Briefcase },
   { title: 'About', url: '/admin/about', icon: Info },
+  { title: 'Gallery', url: '/admin/gallery', icon: Image },
 ];
 
 const adminItems = [
