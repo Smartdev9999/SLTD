@@ -144,15 +144,6 @@ export const Header = () => {
                 {isEditMode ? t('nav.exitEdit') : t('nav.editPage')}
               </Button>
             )}
-            <Link to="/auth">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="border-white/20 text-white hover:bg-white/10 hover:text-white"
-              >
-                {t('nav.login')}
-              </Button>
-            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -196,14 +187,6 @@ export const Header = () => {
                     {isEditMode ? t('nav.exitEdit') : t('nav.editPage')}
                   </Button>
                 )}
-                <Link to="/auth" className="block px-4" onClick={() => setMobileMenuOpen(false)}>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-white/20 text-white hover:bg-white/10 hover:text-white"
-                  >
-                    {t('nav.login')}
-                  </Button>
-                </Link>
               </div>
             </div>
           </div>
