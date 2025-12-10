@@ -159,6 +159,15 @@
     "applyNow": "立即申请",
     "benefits": "福利待遇",
     "culture": "我们的文化",
+    "noOpenings": "目前没有空缺职位。请稍后再查看！",
+    "healthInsurance": "医疗保险",
+    "healthInsuranceDesc": "为您和家人提供全面的健康保障",
+    "teamEnvironment": "团队环境",
+    "teamEnvironmentDesc": "协作的工作环境和支持性的同事",
+    "growthOpportunities": "成长机会",
+    "growthOpportunitiesDesc": "清晰的职业发展路径和技能发展计划",
+    "workLifeBalance": "工作生活平衡",
+    "workLifeBalanceDesc": "灵活的工作安排和支持性工作环境",
     "benefitsList": {
       "growth": {
         "title": "职业发展",
@@ -177,7 +186,7 @@
         "description": "有吸引力的薪资方案和绩效奖金"
       }
     },
-    "cultureDescription": "在LSTD，我们培养团队合作、可靠性和持续改进的文化。加入一个重视奉献并每天追求卓越的充满活力的团队。"
+    "cultureDescription": "在{{company}}，我们培养团队合作、可靠性和持续改进的文化。加入一个重视奉献并每天追求卓越的充满活力的团队。"
   },
   "contact": {
     "title": "联系我们",
