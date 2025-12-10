@@ -114,9 +114,12 @@ const Gallery = () => {
                       className="w-full h-full"
                     >
                       <img
-                        src={item.image_url || fallbackImages[index % fallbackImages.length]}
+                        src={item.image_url}
                         alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        onError={(e) => {
+                          e.currentTarget.src = fallbackImages[index % fallbackImages.length];
+                        }}
                       />
                     </EditableTableImage>
                     
