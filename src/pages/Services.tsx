@@ -9,6 +9,22 @@ import dynamicIconImports from 'lucide-react/dynamicIconImports';
 import { lazy, Suspense } from 'react';
 import type { LucideProps } from 'lucide-react';
 import heroImage from '@/assets/hero-services.jpg';
+import serviceCourier from '@/assets/service-courier.jpg';
+import serviceCod from '@/assets/service-cod.jpg';
+import serviceCargo from '@/assets/service-cargo.jpg';
+import servicePayment from '@/assets/service-payment.jpg';
+import serviceWarehouse from '@/assets/service-warehouse.jpg';
+import serviceCustom from '@/assets/service-custom.jpg';
+
+// Map icons to service images
+const serviceImageMap: Record<string, string> = {
+  'Truck': serviceCourier,
+  'Banknote': serviceCod,
+  'Container': serviceCargo,
+  'CreditCard': servicePayment,
+  'Warehouse': serviceWarehouse,
+  'Settings': serviceCustom,
+};
 
 interface DynamicIconProps extends Omit<LucideProps, 'ref'> {
   name: keyof typeof dynamicIconImports;
@@ -74,19 +90,42 @@ export const Services = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service) => {
                 const raw = getRawService(service.id);
+                const serviceImage = service.icon ? serviceImageMap[service.icon] : null;
                 return (
                   <div
                     key={service.id}
-                    className="group p-8 rounded-lg hover:bg-muted transition-colors"
+                    className="group rounded-lg overflow-hidden bg-card hover:shadow-xl transition-all duration-300"
                   >
-                    {service.icon && (
-                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                        <DynamicIcon 
-                          name={service.icon as keyof typeof dynamicIconImports} 
-                          className="w-8 h-8 text-primary" 
+                    {/* Service Image */}
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      {serviceImage ? (
+                        <img 
+                          src={serviceImage} 
+                          alt={service.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                      </div>
-                    )}
+                      ) : (
+                        <div className="w-full h-full bg-muted flex items-center justify-center">
+                          {service.icon && (
+                            <DynamicIcon 
+                              name={service.icon as keyof typeof dynamicIconImports} 
+                              className="w-16 h-16 text-primary/50" 
+                            />
+                          )}
+                        </div>
+                      )}
+                      {/* Icon overlay */}
+                      {service.icon && (
+                        <div className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-lg">
+                          <DynamicIcon 
+                            name={service.icon as keyof typeof dynamicIconImports} 
+                            className="w-6 h-6 text-primary-foreground" 
+                          />
+                        </div>
+                      )}
+                    </div>
+                    {/* Content */}
+                    <div className="p-6">
                     <h2 className="font-display text-2xl text-foreground mb-4">
                       {raw ? (
                         <EditableTableText
@@ -134,6 +173,7 @@ export const Services = () => {
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
+                    </div>
                   </div>
                 );
               })}
