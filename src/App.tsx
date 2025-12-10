@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { FrontEditProvider } from "@/contexts/FrontEditContext";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { AppLoader } from "@/components/AppLoader";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
@@ -36,28 +37,30 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/admin" element={<Dashboard />} />
-              <Route path="/admin/news" element={<NewsAdmin />} />
-              <Route path="/admin/projects" element={<ProjectsAdmin />} />
-              <Route path="/admin/services" element={<ServicesAdmin />} />
-              <Route path="/admin/careers" element={<CareersAdmin />} />
-              <Route path="/admin/about" element={<AboutAdmin />} />
-              <Route path="/admin/gallery" element={<GalleryAdmin />} />
-              <Route path="/admin/users" element={<UsersAdmin />} />
-              <Route path="/admin/settings" element={<SettingsAdmin />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AppLoader>
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/admin" element={<Dashboard />} />
+                <Route path="/admin/news" element={<NewsAdmin />} />
+                <Route path="/admin/projects" element={<ProjectsAdmin />} />
+                <Route path="/admin/services" element={<ServicesAdmin />} />
+                <Route path="/admin/careers" element={<CareersAdmin />} />
+                <Route path="/admin/about" element={<AboutAdmin />} />
+                <Route path="/admin/gallery" element={<GalleryAdmin />} />
+                <Route path="/admin/users" element={<UsersAdmin />} />
+                <Route path="/admin/settings" element={<SettingsAdmin />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AppLoader>
           </BrowserRouter>
         </TooltipProvider>
       </FrontEditProvider>
