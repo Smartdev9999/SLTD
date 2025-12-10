@@ -5,6 +5,8 @@ import { useAboutContent } from '@/hooks/useAboutContent';
 import { EditableTableText } from '@/components/front-edit/EditableTableText';
 import { EditableTableImage } from '@/components/front-edit/EditableTableImage';
 import heroImage from '@/assets/hero-about.jpg';
+import historyFallbackImage from '@/assets/about-history.jpg';
+import teamFallbackImage from '@/assets/about-team.jpg';
 
 export const About = () => {
   const { t } = useTranslation();
@@ -255,23 +257,19 @@ export const About = () => {
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              {historyRaw && (
-                <EditableTableImage
-                  tableName="about_content"
-                  recordId={historyRaw.id}
-                  currentUrl={historyRaw.image_url}
-                  onUpdate={refetch}
-                  className="w-full aspect-[4/3] rounded-lg overflow-hidden"
-                >
-                  {historyRaw.image_url ? (
-                    <img src={historyRaw.image_url} alt="History" className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full bg-muted flex items-center justify-center">
-                      <History className="w-16 h-16 text-primary" />
-                    </div>
-                  )}
-                </EditableTableImage>
-              )}
+              <EditableTableImage
+                tableName="about_content"
+                recordId={historyRaw?.id || ''}
+                currentUrl={historyRaw?.image_url || null}
+                onUpdate={refetch}
+                className="w-full aspect-[4/3] rounded-lg overflow-hidden"
+              >
+                {historyRaw?.image_url ? (
+                  <img src={historyRaw.image_url} alt="History" className="w-full h-full object-cover" />
+                ) : (
+                  <img src={historyFallbackImage} alt="History" className="w-full h-full object-cover" />
+                )}
+              </EditableTableImage>
             </div>
             <div>
               <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6">
@@ -331,23 +329,19 @@ export const About = () => {
       <section className="py-20 bg-muted">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            {teamRaw && (
-              <EditableTableImage
-                tableName="about_content"
-                recordId={teamRaw.id}
-                currentUrl={teamRaw.image_url}
-                onUpdate={refetch}
-                className="w-full aspect-video mb-10 rounded-lg overflow-hidden"
-              >
-                {teamRaw.image_url ? (
-                  <img src={teamRaw.image_url} alt="Team" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-accent/50 flex items-center justify-center">
-                    <Users className="w-16 h-16 text-primary" />
-                  </div>
-                )}
-              </EditableTableImage>
-            )}
+            <EditableTableImage
+              tableName="about_content"
+              recordId={teamRaw?.id || ''}
+              currentUrl={teamRaw?.image_url || null}
+              onUpdate={refetch}
+              className="w-full aspect-video mb-10 rounded-lg overflow-hidden"
+            >
+              {teamRaw?.image_url ? (
+                <img src={teamRaw.image_url} alt="Team" className="w-full h-full object-cover" />
+              ) : (
+                <img src={teamFallbackImage} alt="Team" className="w-full h-full object-cover" />
+              )}
+            </EditableTableImage>
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8">
               <Users className="w-8 h-8 text-primary" />
             </div>

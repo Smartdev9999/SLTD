@@ -6,6 +6,8 @@ import { useNews } from '@/hooks/useNews';
 import { EditableTableText } from '@/components/front-edit/EditableTableText';
 import { EditableTableImage } from '@/components/front-edit/EditableTableImage';
 import heroImage from '@/assets/hero-news.jpg';
+import newsWarehouse from '@/assets/news-warehouse.jpg';
+import newsPartnership from '@/assets/news-partnership.jpg';
 
 export const News = () => {
   const { t } = useTranslation();
@@ -13,8 +15,12 @@ export const News = () => {
 
   const getRawItem = (id: string) => rawNews.find(n => n.id === id);
 
-  const NewsCard = ({ item }: { item: typeof news[0] }) => {
+  // Fallback images for news items
+  const fallbackImages = [newsWarehouse, newsPartnership];
+  
+  const NewsCard = ({ item, index }: { item: typeof news[0]; index: number }) => {
     const raw = getRawItem(item.id);
+    const fallbackImage = fallbackImages[index % fallbackImages.length];
     
     return (
       <div className="group bg-card rounded-lg overflow-hidden hover:shadow-lg transition-all">
@@ -25,16 +31,18 @@ export const News = () => {
           onUpdate={refetch}
           className="aspect-[16/10] bg-muted overflow-hidden"
         >
-          {item.image_url ? (
+          {item.image_url && item.image_url !== '/placeholder.svg' ? (
             <img 
               src={item.image_url} 
               alt={item.title} 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <Newspaper className="w-12 h-12 text-muted-foreground/30" />
-            </div>
+            <img 
+              src={fallbackImage} 
+              alt={item.title} 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
           )}
         </EditableTableImage>
         <div className="p-6">
@@ -132,8 +140,8 @@ export const News = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {news.map(item => (
-                <NewsCard key={item.id} item={item} />
+              {news.map((item, index) => (
+                <NewsCard key={item.id} item={item} index={index} />
               ))}
             </div>
           )}

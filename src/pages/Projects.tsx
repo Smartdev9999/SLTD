@@ -6,6 +6,9 @@ import { useProjects } from '@/hooks/useProjects';
 import { EditableTableText } from '@/components/front-edit/EditableTableText';
 import { EditableTableImage } from '@/components/front-edit/EditableTableImage';
 import heroImage from '@/assets/hero-projects.jpg';
+import projectLogistics from '@/assets/project-logistics.jpg';
+import projectEcommerce from '@/assets/project-ecommerce-new.jpg';
+import projectWarehouse from '@/assets/project-warehouse.jpg';
 
 export const Projects = () => {
   const { t } = useTranslation();
@@ -51,8 +54,10 @@ export const Projects = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
-              {projects.map((project) => {
+              {projects.map((project, index) => {
                 const raw = getRawProject(project.id);
+                const fallbackImages = [projectLogistics, projectEcommerce, projectWarehouse];
+                const fallbackImage = fallbackImages[index % fallbackImages.length];
                 return (
                   <div
                     key={project.id}
@@ -66,16 +71,18 @@ export const Projects = () => {
                       onUpdate={refetch}
                       className="aspect-[16/10] bg-muted overflow-hidden"
                     >
-                      {project.image_url ? (
+                      {project.image_url && project.image_url !== '/placeholder.svg' ? (
                         <img 
                           src={project.image_url} 
                           alt={project.title} 
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <Building2 className="w-16 h-16 text-muted-foreground/30" />
-                        </div>
+                        <img 
+                          src={fallbackImage} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                       )}
                     </EditableTableImage>
 
