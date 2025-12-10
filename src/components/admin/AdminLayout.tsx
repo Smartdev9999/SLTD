@@ -66,7 +66,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/auth');
+    navigate('/');
   };
 
   if (loading) {
