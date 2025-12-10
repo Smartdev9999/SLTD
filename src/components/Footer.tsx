@@ -2,12 +2,14 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useServices } from "@/hooks/useServices";
 import { EditableText, EditableImage } from "@/components/front-edit";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const Footer = () => {
   const { t, i18n } = useTranslation();
   const { companyName, tagline, logoUrl, settings, getSetting } = useSiteSettings();
+  const { services: localizedServices } = useServices();
   const queryClient = useQueryClient();
 
   const handleUpdate = () => {
@@ -31,14 +33,8 @@ export const Footer = () => {
     { name: t('nav.contact'), href: "/contact" },
   ];
 
-  const services = [
-    "Toll Collection",
-    "Fee Management",
-    "Electronic Payments",
-    "Revenue Reporting",
-    "Infrastructure Support",
-    "Consulting",
-  ];
+  // Get first 6 services for footer display
+  const footerServices = localizedServices.slice(0, 6);
 
   // Get contact info from settings with defaults
   const footerAddress = getSetting('footer_address') || '123 Government Center\nVientiane Capital\nLao PDR';
@@ -127,13 +123,13 @@ export const Footer = () => {
           <div>
             <h4 className="font-display text-lg text-accent-foreground mb-6">{t('footer.popularCourses')}</h4>
             <ul className="space-y-3">
-              {services.map((service) => (
-                <li key={service}>
+              {footerServices.map((service) => (
+                <li key={service.id}>
                   <Link
                     to="/services"
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    {service}
+                    {service.title}
                   </Link>
                 </li>
               ))}
