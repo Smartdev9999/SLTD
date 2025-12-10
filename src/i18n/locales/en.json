@@ -4,6 +4,7 @@
     "about": "About Us",
     "projects": "Projects",
     "services": "Services",
+    "gallery": "Gallery",
     "news": "News & Media",
     "careers": "Careers",
     "contact": "Contact",
@@ -150,6 +151,18 @@
     "pressReleases": "Press Releases",
     "articles": "Articles",
     "gallery": "Photo Gallery"
+  },
+  "gallery": {
+    "title": "GALLERY",
+    "subtitle": "Photo Collection",
+    "description": "Browse our collection of photos showcasing our operations, team, and achievements.",
+    "noPhotos": "No photos available yet. Check back soon!",
+    "categories": {
+      "operations": "Operations",
+      "team": "Team",
+      "events": "Events",
+      "facilities": "Facilities"
+    }
   },
   "careers": {
     "title": "Careers",

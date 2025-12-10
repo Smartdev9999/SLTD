@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 
 interface EditableTableImageProps {
   children: ReactNode;
-  tableName: 'projects' | 'news' | 'services' | 'about_content';
+  tableName: 'projects' | 'news' | 'services' | 'about_content' | 'gallery';
   recordId: string;
   currentUrl: string | null;
   onUpdate?: () => void;
