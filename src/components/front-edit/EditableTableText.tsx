@@ -1,5 +1,5 @@
 import { useState, ReactNode } from 'react';
-import { Pencil, Check, X } from 'lucide-react';
+import { Pencil, Check, X, Loader2 } from 'lucide-react';
 import { useFrontEdit } from '@/contexts/FrontEditContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { translateFromEnglish } from '@/services/translationService';
 
 interface EditableTableTextProps {
   children: ReactNode;
@@ -44,15 +45,34 @@ export const EditableTableText = ({
   const [isEditing, setIsEditing] = useState(false);
   const [values, setValues] = useState(currentValue);
   const [saving, setSaving] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
 
   const handleSave = async () => {
+    let finalValues = { ...values };
+
+    // Auto-translate if English has content but other languages are empty
+    if (values.en.trim() && (!values.la.trim() || !values.th.trim() || !values.zh.trim())) {
+      setIsTranslating(true);
+      try {
+        const result = await translateFromEnglish(values.en);
+        if (!values.la.trim() && result.translations.la) finalValues.la = result.translations.la;
+        if (!values.th.trim() && result.translations.th) finalValues.th = result.translations.th;
+        if (!values.zh.trim() && result.translations.zh) finalValues.zh = result.translations.zh;
+        setValues(finalValues);
+      } catch (error) {
+        console.error('Translation error:', error);
+      } finally {
+        setIsTranslating(false);
+      }
+    }
+
     setSaving(true);
     try {
       const updateData = {
-        [`${fieldPrefix}_en`]: values.en,
-        [`${fieldPrefix}_la`]: values.la,
-        [`${fieldPrefix}_th`]: values.th,
-        [`${fieldPrefix}_zh`]: values.zh,
+        [`${fieldPrefix}_en`]: finalValues.en,
+        [`${fieldPrefix}_la`]: finalValues.la,
+        [`${fieldPrefix}_th`]: finalValues.th,
+        [`${fieldPrefix}_zh`]: finalValues.zh,
       };
 
       const { error } = await supabase
@@ -145,13 +165,17 @@ export const EditableTableText = ({
             </TabsContent>
           </Tabs>
           <div className="flex justify-end gap-2 mt-4">
-            <Button variant="outline" onClick={() => setIsEditing(false)} disabled={saving}>
+            <Button variant="outline" onClick={() => setIsEditing(false)} disabled={saving || isTranslating}>
               <X className="w-4 h-4 mr-2" />
               Cancel
             </Button>
-            <Button onClick={handleSave} disabled={saving}>
-              <Check className="w-4 h-4 mr-2" />
-              {saving ? 'Saving...' : 'Save'}
+            <Button onClick={handleSave} disabled={saving || isTranslating}>
+              {isTranslating ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Check className="w-4 h-4 mr-2" />
+              )}
+              {isTranslating ? 'Translating...' : saving ? 'Saving...' : 'Save'}
             </Button>
           </div>
         </DialogContent>
