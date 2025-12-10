@@ -60,6 +60,7 @@ export const useProjects = () => {
 
   return {
     projects: localizedProjects,
+    rawProjects: projects || [],
     isLoading,
     error,
     refetch,
