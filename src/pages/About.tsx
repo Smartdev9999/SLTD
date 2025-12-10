@@ -7,6 +7,8 @@ import { EditableTableImage } from '@/components/front-edit/EditableTableImage';
 import heroImage from '@/assets/hero-about.jpg';
 import historyFallbackImage from '@/assets/about-history.jpg';
 import teamFallbackImage from '@/assets/about-team.jpg';
+import visionFallbackImage from '@/assets/about-vision.jpg';
+import missionFallbackImage from '@/assets/about-mission.jpg';
 
 export const About = () => {
   const { t } = useTranslation();
@@ -112,9 +114,7 @@ export const About = () => {
                     {visionRaw.image_url ? (
                       <img src={visionRaw.image_url} alt="Vision" className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-accent/50 flex items-center justify-center">
-                        <Eye className="w-12 h-12 text-primary" />
-                      </div>
+                      <img src={visionFallbackImage} alt="Vision" className="w-full h-full object-cover" />
                     )}
                   </EditableTableImage>
                 )}
@@ -175,9 +175,7 @@ export const About = () => {
                     {missionRaw.image_url ? (
                       <img src={missionRaw.image_url} alt="Mission" className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-accent/50 flex items-center justify-center">
-                        <Target className="w-12 h-12 text-primary" />
-                      </div>
+                      <img src={missionFallbackImage} alt="Mission" className="w-full h-full object-cover" />
                     )}
                   </EditableTableImage>
                 )}
