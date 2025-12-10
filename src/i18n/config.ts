@@ -1,6 +1,5 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './locales/en.json';
 import la from './locales/la.json';
@@ -14,19 +13,24 @@ const resources = {
   zh: { translation: zh },
 };
 
+// Get saved language or default to English
+const getSavedLanguage = (): string => {
+  const saved = localStorage.getItem('i18nextLng');
+  // Only use saved language if it's a valid option
+  if (saved && ['en', 'la', 'th', 'zh'].includes(saved)) {
+    return saved;
+  }
+  return 'en';
+};
+
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
-    lng: localStorage.getItem('i18nextLng') || 'en', // Default to English immediately
+    lng: getSavedLanguage(),
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
-    },
-    detection: {
-      order: ['localStorage'], // Only use localStorage, not browser language
-      caches: ['localStorage'],
     },
   });
 
