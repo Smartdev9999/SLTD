@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EditableTableText } from "@/components/front-edit/EditableTableText";
+import { EditableTableImage } from "@/components/front-edit/EditableTableImage";
 
 export const ProjectsSection = () => {
   const { t } = useTranslation();
@@ -80,19 +81,25 @@ export const ProjectsSection = () => {
                 className="group relative bg-card rounded-lg border border-border overflow-hidden hover:border-primary/50 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {project.image_url ? (
-                  <div className="aspect-video overflow-hidden">
+              <EditableTableImage
+                  tableName="projects"
+                  recordId={project.id}
+                  currentUrl={project.image_url}
+                  onUpdate={refetch}
+                  className="aspect-video overflow-hidden"
+                >
+                  {project.image_url ? (
                     <img 
                       src={project.image_url} 
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                  </div>
-                ) : (
-                  <div className="aspect-video bg-gradient-to-br from-accent to-muted flex items-center justify-center">
-                    <span className="font-display text-4xl text-primary/20">LSTD</span>
-                  </div>
-                )}
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-accent to-muted flex items-center justify-center">
+                      <span className="font-display text-4xl text-primary/20">LSTD</span>
+                    </div>
+                  )}
+                </EditableTableImage>
                 
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
