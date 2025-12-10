@@ -60,17 +60,18 @@ export const Hero = () => {
   return (
     <section className="relative min-h-[100svh] flex items-end pb-16 md:pb-24 overflow-hidden">
       {/* Background Image */}
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      />
       <EditableImage
         settingKey="hero_background_image"
         currentUrl={heroBackgroundImage}
         onUpdate={refetch}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 pointer-events-none"
       >
-        <img 
-          src={backgroundImage} 
-          alt="Hero background" 
-          className="w-full h-full object-cover"
-        />
+        <div className="w-full h-full" />
       </EditableImage>
       
       {/* Dark overlay for text readability */}
