@@ -1,10 +1,18 @@
+const LIBRETRANSLATE_API = 'https://libretranslate.com/translate';
 const MYMEMORY_API = 'https://api.mymemory.translated.net/get';
 
 const LANGUAGE_CODES: Record<string, string> = {
   en: 'en',      // English
   la: 'lo',      // Lao
   th: 'th',      // Thai
-  zh: 'zh-CN',   // Chinese Simplified
+  zh: 'zh',      // Chinese
+};
+
+const MYMEMORY_LANG_CODES: Record<string, string> = {
+  en: 'en',
+  la: 'lo',
+  th: 'th',
+  zh: 'zh-CN',
 };
 
 export type LanguageKey = 'en' | 'la' | 'th' | 'zh';
@@ -20,24 +28,68 @@ export interface TranslationResult {
   errors?: string[];
 }
 
-async function translateText(text: string, targetLang: string): Promise<string> {
-  if (!text.trim()) return '';
-  
-  const langCode = LANGUAGE_CODES[targetLang] || targetLang;
-  const url = `${MYMEMORY_API}?q=${encodeURIComponent(text)}&langpair=en|${langCode}`;
-  
+// LibreTranslate - better quality for Southeast Asian languages
+async function translateWithLibre(
+  text: string, 
+  sourceLang: string, 
+  targetLang: string
+): Promise<string> {
+  const response = await fetch(LIBRETRANSLATE_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      q: text,
+      source: LANGUAGE_CODES[sourceLang],
+      target: LANGUAGE_CODES[targetLang],
+      format: 'text',
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`LibreTranslate failed: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.translatedText;
+}
+
+// MyMemory fallback
+async function translateWithMyMemory(
+  text: string, 
+  sourceLang: string, 
+  targetLang: string
+): Promise<string> {
+  const sourceLangCode = MYMEMORY_LANG_CODES[sourceLang];
+  const targetLangCode = MYMEMORY_LANG_CODES[targetLang];
+  const url = `${MYMEMORY_API}?q=${encodeURIComponent(text)}&langpair=${sourceLangCode}|${targetLangCode}`;
+
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error(`Translation failed: ${response.statusText}`);
+    throw new Error(`MyMemory failed: ${response.statusText}`);
   }
-  
+
   const data = await response.json();
-  
   if (data.responseStatus !== 200) {
-    throw new Error(data.responseDetails || 'Translation failed');
+    throw new Error(data.responseDetails || 'MyMemory translation failed');
   }
-  
+
   return data.responseData.translatedText;
+}
+
+// Try LibreTranslate first, fallback to MyMemory
+async function translateText(
+  text: string, 
+  sourceLang: string, 
+  targetLang: string
+): Promise<string> {
+  if (!text.trim()) return '';
+
+  try {
+    return await translateWithLibre(text, sourceLang, targetLang);
+  } catch {
+    // Fallback to MyMemory
+    return await translateWithMyMemory(text, sourceLang, targetLang);
+  }
 }
 
 export async function translateFromEnglish(englishText: string): Promise<TranslationResult> {
@@ -57,26 +109,10 @@ export async function translateToOtherLanguages(
   // Get all other languages to translate to
   const targetLanguages = (['en', 'la', 'th', 'zh'] as const).filter(lang => lang !== sourceLang);
   
-  const sourceLangCode = LANGUAGE_CODES[sourceLang];
-  
   await Promise.all(
     targetLanguages.map(async (targetLang) => {
       try {
-        const targetLangCode = LANGUAGE_CODES[targetLang];
-        const url = `${MYMEMORY_API}?q=${encodeURIComponent(sourceText)}&langpair=${sourceLangCode}|${targetLangCode}`;
-        
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Translation failed: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        
-        if (data.responseStatus !== 200) {
-          throw new Error(data.responseDetails || 'Translation failed');
-        }
-        
-        translations[targetLang] = data.responseData.translatedText;
+        translations[targetLang] = await translateText(sourceText, sourceLang, targetLang);
       } catch (error) {
         errors.push(`${targetLang}: ${error instanceof Error ? error.message : 'Failed'}`);
         translations[targetLang] = '';
