@@ -26,6 +26,8 @@ export const useSiteSettings = () => {
       return data as SiteSetting[];
     },
     staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    retry: 1, // Only retry once to avoid long hangs
+    retryDelay: 500,
   });
 
   const getSetting = (key: string): string => {
