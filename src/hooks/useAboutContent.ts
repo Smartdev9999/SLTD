@@ -54,12 +54,17 @@ export const useAboutContent = () => {
     };
   };
 
+  const getSectionRaw = (key: string): AboutContent | null => {
+    return sections?.find(s => s.section_key === key) || null;
+  };
+
   return {
     sections,
     isLoading,
     error,
     refetch,
     getSection,
+    getSectionRaw,
     getLocalizedField,
   };
 };
