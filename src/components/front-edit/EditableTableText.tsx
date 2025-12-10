@@ -17,7 +17,7 @@ import { translateToOtherLanguages, detectChangedLanguage, LanguageKey } from '@
 
 interface EditableTableTextProps {
   children: ReactNode;
-  tableName: 'services' | 'projects' | 'about_content' | 'news' | 'careers';
+  tableName: 'services' | 'projects' | 'about_content' | 'news' | 'careers' | 'gallery';
   recordId: string;
   fieldPrefix: 'title' | 'description' | 'content' | 'excerpt' | 'requirements';
   currentValue: {

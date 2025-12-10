@@ -134,6 +134,60 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery: {
+        Row: {
+          category: string | null
+          created_at: string
+          description_en: string | null
+          description_la: string | null
+          description_th: string | null
+          description_zh: string | null
+          featured: boolean | null
+          id: string
+          image_url: string
+          sort_order: number | null
+          title_en: string
+          title_la: string | null
+          title_th: string | null
+          title_zh: string | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description_en?: string | null
+          description_la?: string | null
+          description_th?: string | null
+          description_zh?: string | null
+          featured?: boolean | null
+          id?: string
+          image_url: string
+          sort_order?: number | null
+          title_en: string
+          title_la?: string | null
+          title_th?: string | null
+          title_zh?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description_en?: string | null
+          description_la?: string | null
+          description_th?: string | null
+          description_zh?: string | null
+          featured?: boolean | null
+          id?: string
+          image_url?: string
+          sort_order?: number | null
+          title_en?: string
+          title_la?: string | null
+          title_th?: string | null
+          title_zh?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           author_id: string | null
