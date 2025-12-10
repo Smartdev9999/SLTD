@@ -1,10 +1,11 @@
-import { ArrowRight, Building2, MapPin, Banknote } from "lucide-react";
+import { ArrowRight, Truck, MapPin, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { EditableText } from "@/components/front-edit/EditableText";
 import { EditableImage } from "@/components/front-edit/EditableImage";
+import heroHomeImage from "@/assets/hero-home.jpg";
 
 export const Hero = () => {
   const { t } = useTranslation();
@@ -21,10 +22,10 @@ export const Hero = () => {
 
   const stats = [
     { 
-      icon: Building2, 
+      icon: Truck, 
       valueKey: 'hero_stat1_value',
       labelKey: 'hero_stat1_label',
-      value: getSetting('hero_stat1_value') || "25+", 
+      value: getSetting('hero_stat1_value') || "15+", 
       label: getSetting('hero_stat1_label') || t('hero.stats.experience')
     },
     { 
@@ -35,10 +36,10 @@ export const Hero = () => {
       label: getSetting('hero_stat2_label') || t('hero.stats.certifications')
     },
     { 
-      icon: Banknote, 
+      icon: Package, 
       valueKey: 'hero_stat3_value',
       labelKey: 'hero_stat3_label',
-      value: getSetting('hero_stat3_value') || "10M+", 
+      value: getSetting('hero_stat3_value') || "1M+", 
       label: getSetting('hero_stat3_label') || t('hero.stats.professionals')
     },
   ];
@@ -53,8 +54,11 @@ export const Hero = () => {
     };
   };
 
+  // Use database image if available, otherwise use static image
+  const backgroundImage = heroBackgroundImage || heroHomeImage;
+
   return (
-    <section className="relative min-h-screen flex items-center hero-gradient pt-32 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
       {/* Background Image */}
       <EditableImage
         settingKey="hero_background_image"
@@ -62,32 +66,23 @@ export const Hero = () => {
         onUpdate={refetch}
         className="absolute inset-0 z-0"
       >
-        {heroBackgroundImage ? (
-          <img 
-            src={heroBackgroundImage} 
-            alt="Hero background" 
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full" />
-        )}
+        <img 
+          src={backgroundImage} 
+          alt="Hero background" 
+          className="w-full h-full object-cover"
+        />
       </EditableImage>
       
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-foreground/60 z-[1]" />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-foreground/40 z-[1]" />
       
-      <div className="absolute inset-0 opacity-10 z-[2]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-      </div>
-      
+      {/* Accent line */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-64 bg-primary z-[3]" />
       
       <div className="container relative z-10">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in">
-            <Building2 className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8 animate-fade-in backdrop-blur-sm">
+            <Truck className="w-4 h-4" />
             <EditableText
               settingKey="hero_badge"
               currentValue={getEditableValues('hero_badge', t('hero.badge'))}
@@ -125,7 +120,7 @@ export const Hero = () => {
             </EditableText>
           </h1>
           
-          <p className="text-lg md:text-xl text-background/70 max-w-xl mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <p className="text-lg md:text-xl text-background/80 max-w-xl mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <EditableText
               settingKey="hero_subtitle"
               currentValue={getEditableValues('hero_subtitle', t('hero.subtitle'))}
@@ -163,7 +158,7 @@ export const Hero = () => {
                     {stat.value}
                   </EditableText>
                 </div>
-                <div className="text-sm text-background/60">
+                <div className="text-sm text-background/70">
                   <EditableText
                     settingKey={stat.labelKey}
                     currentValue={getEditableValues(stat.labelKey, stat.label)}
