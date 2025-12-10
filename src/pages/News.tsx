@@ -1,42 +1,95 @@
 import { useTranslation } from 'react-i18next';
 import { PageLayout } from '@/components/layout/PageLayout';
-import { Calendar, ArrowRight, Newspaper, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { Calendar, ArrowRight, Newspaper, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNews } from '@/hooks/useNews';
+import { EditableTableText } from '@/components/front-edit/EditableTableText';
+import { EditableTableImage } from '@/components/front-edit/EditableTableImage';
 
 export const News = () => {
   const { t } = useTranslation();
-  const { news, isLoading } = useNews();
+  const { news, rawNews, isLoading, refetch } = useNews();
 
-  const NewsCard = ({ item }: { item: typeof news[0] }) => (
-    <div className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="aspect-video bg-accent flex items-center justify-center overflow-hidden">
-        {item.image_url ? (
-          <img 
-            src={item.image_url} 
-            alt={item.title} 
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <Newspaper className="w-12 h-12 text-primary/30" />
-        )}
-      </div>
-      <div className="p-6">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-          <Calendar className="w-4 h-4" />
-          {item.published_at 
-            ? new Date(item.published_at).toLocaleDateString() 
-            : new Date(item.created_at).toLocaleDateString()}
+  const getRawItem = (id: string) => rawNews.find(n => n.id === id);
+
+  const NewsCard = ({ item }: { item: typeof news[0] }) => {
+    const raw = getRawItem(item.id);
+    
+    return (
+      <div className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+        <EditableTableImage
+          tableName="news"
+          recordId={item.id}
+          currentUrl={item.image_url}
+          onUpdate={refetch}
+          className="aspect-video bg-accent flex items-center justify-center overflow-hidden"
+        >
+          {item.image_url ? (
+            <img 
+              src={item.image_url} 
+              alt={item.title} 
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <Newspaper className="w-12 h-12 text-primary/30" />
+          )}
+        </EditableTableImage>
+        <div className="p-6">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+            <Calendar className="w-4 h-4" />
+            {item.published_at 
+              ? new Date(item.published_at).toLocaleDateString() 
+              : new Date(item.created_at).toLocaleDateString()}
+          </div>
+          <h3 className="font-display text-xl text-foreground mb-2">
+            {raw ? (
+              <EditableTableText
+                tableName="news"
+                recordId={item.id}
+                fieldPrefix="title"
+                currentValue={{
+                  en: raw.title_en || '',
+                  la: raw.title_la || '',
+                  th: raw.title_th || '',
+                  zh: raw.title_zh || '',
+                }}
+                onUpdate={refetch}
+              >
+                {item.title}
+              </EditableTableText>
+            ) : (
+              item.title
+            )}
+          </h3>
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+            {raw ? (
+              <EditableTableText
+                tableName="news"
+                recordId={item.id}
+                fieldPrefix="excerpt"
+                currentValue={{
+                  en: raw.excerpt_en || '',
+                  la: raw.excerpt_la || '',
+                  th: raw.excerpt_th || '',
+                  zh: raw.excerpt_zh || '',
+                }}
+                onUpdate={refetch}
+                multiline
+              >
+                {item.excerpt}
+              </EditableTableText>
+            ) : (
+              item.excerpt
+            )}
+          </p>
+          <Button variant="link" className="p-0 h-auto text-primary">
+            {t('news.readMore')}
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
         </div>
-        <h3 className="font-display text-xl text-foreground mb-2">{item.title}</h3>
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{item.excerpt}</p>
-        <Button variant="link" className="p-0 h-auto text-primary">
-          {t('news.readMore')}
-          <ArrowRight className="w-4 h-4 ml-1" />
-        </Button>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <PageLayout>

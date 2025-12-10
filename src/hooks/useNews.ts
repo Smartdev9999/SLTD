@@ -25,7 +25,7 @@ interface NewsItem {
 export const useNews = () => {
   const { i18n } = useTranslation();
 
-  const { data: news, isLoading, error } = useQuery({
+  const { data: news, isLoading, error, refetch } = useQuery({
     queryKey: ['news-public'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -71,7 +71,9 @@ export const useNews = () => {
 
   return {
     news: localizedNews,
+    rawNews: news || [],
     isLoading,
     error,
+    refetch,
   };
 };

@@ -3,10 +3,12 @@ import { PageLayout } from '@/components/layout/PageLayout';
 import { Building2, Calendar, MapPin, Loader2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useProjects } from '@/hooks/useProjects';
+import { EditableTableText } from '@/components/front-edit/EditableTableText';
+import { EditableTableImage } from '@/components/front-edit/EditableTableImage';
 
 export const Projects = () => {
   const { t } = useTranslation();
-  const { projects, isLoading } = useProjects();
+  const { projects, isLoading, refetch } = useProjects();
 
   return (
     <PageLayout>
@@ -46,7 +48,13 @@ export const Projects = () => {
                   <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                     {/* Image */}
                     <div className="lg:w-1/3">
-                      <div className="aspect-video bg-accent rounded-lg flex items-center justify-center overflow-hidden">
+                      <EditableTableImage
+                        tableName="projects"
+                        recordId={project.id}
+                        currentUrl={project.image_url}
+                        onUpdate={refetch}
+                        className="aspect-video bg-accent rounded-lg flex items-center justify-center overflow-hidden"
+                      >
                         {project.image_url ? (
                           <img 
                             src={project.image_url} 
@@ -56,7 +64,7 @@ export const Projects = () => {
                         ) : (
                           <Building2 className="w-16 h-16 text-primary/30" />
                         )}
-                      </div>
+                      </EditableTableImage>
                     </div>
 
                     {/* Content */}
@@ -80,11 +88,38 @@ export const Projects = () => {
                       </div>
 
                       <h2 className="font-display text-2xl text-foreground mb-3">
-                        {project.title}
+                        <EditableTableText
+                          tableName="projects"
+                          recordId={project.id}
+                          fieldPrefix="title"
+                          currentValue={{
+                            en: project.title_en || '',
+                            la: project.title_la || '',
+                            th: project.title_th || '',
+                            zh: project.title_zh || '',
+                          }}
+                          onUpdate={refetch}
+                        >
+                          {project.title}
+                        </EditableTableText>
                       </h2>
 
                       <p className="text-muted-foreground">
-                        {project.description}
+                        <EditableTableText
+                          tableName="projects"
+                          recordId={project.id}
+                          fieldPrefix="description"
+                          currentValue={{
+                            en: project.description_en || '',
+                            la: project.description_la || '',
+                            th: project.description_th || '',
+                            zh: project.description_zh || '',
+                          }}
+                          onUpdate={refetch}
+                          multiline
+                        >
+                          {project.description}
+                        </EditableTableText>
                       </p>
                     </div>
                   </div>
