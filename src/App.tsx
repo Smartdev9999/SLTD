@@ -22,6 +22,7 @@ import ProjectsAdmin from "./pages/admin/ProjectsAdmin";
 import ServicesAdmin from "./pages/admin/ServicesAdmin";
 import CareersAdmin from "./pages/admin/CareersAdmin";
 import AboutAdmin from "./pages/admin/AboutAdmin";
+import GalleryAdmin from "./pages/admin/GalleryAdmin";
 import UsersAdmin from "./pages/admin/UsersAdmin";
 import SettingsAdmin from "./pages/admin/SettingsAdmin";
 
@@ -52,6 +53,7 @@ const App = () => (
               <Route path="/admin/services" element={<ServicesAdmin />} />
               <Route path="/admin/careers" element={<CareersAdmin />} />
               <Route path="/admin/about" element={<AboutAdmin />} />
+              <Route path="/admin/gallery" element={<GalleryAdmin />} />
               <Route path="/admin/users" element={<UsersAdmin />} />
               <Route path="/admin/settings" element={<SettingsAdmin />} />
               <Route path="*" element={<NotFound />} />
