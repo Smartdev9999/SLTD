@@ -1,6 +1,7 @@
+import { forwardRef } from 'react';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 
-export const ContactMap = () => {
+export const ContactMap = forwardRef<HTMLElement>((_, ref) => {
   const { getSetting } = useSiteSettings();
   const mapUrl = getSetting('google_maps_url');
 
@@ -9,7 +10,7 @@ export const ContactMap = () => {
   }
 
   return (
-    <section className="pb-0">
+    <section ref={ref} className="pb-0">
       <div className="w-full h-[400px]">
         <iframe
           src={mapUrl}
@@ -24,4 +25,6 @@ export const ContactMap = () => {
       </div>
     </section>
   );
-};
+});
+
+ContactMap.displayName = 'ContactMap';
