@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "about": "About Us",
-    "projects": "Projects",
+    "projects": "Operations",
     "services": "Services",
     "news": "News & Media",
     "careers": "Careers",
@@ -15,27 +15,27 @@
   "header": {
     "phone": "(123) 456-7890",
     "email": "info@lstd.la",
-    "tagline": "Public Works & Transportation Solutions"
+    "tagline": "Logistics & Payment Collection Services"
   },
   "hero": {
-    "badge": "Trusted Revenue Collection Partner",
-    "title1": "PUBLIC WORKS",
-    "title2": "& TRANSPORTATION",
-    "title3": "SOLUTIONS",
-    "subtitle": "Leading provider of revenue collection services for public works and transportation infrastructure across the nation. Efficient, transparent, and reliable.",
+    "badge": "Your Trusted Logistics Partner",
+    "title1": "LOGISTICS",
+    "title2": "& PAYMENT",
+    "title3": "COLLECTION",
+    "subtitle": "Leading provider of logistics, transportation, and payment collection services nationwide. Reliable COD, courier delivery, and financial settlement solutions.",
     "viewCourses": "Our Services",
     "requestQuote": "Request Quote",
     "stats": {
       "experience": "Years Experience",
       "certifications": "Provinces Covered",
-      "professionals": "Transactions Processed"
+      "professionals": "Deliveries Completed"
     }
   },
   "courses": {
     "sectionLabel": "Our Core Services",
     "title1": "COMPREHENSIVE",
-    "title2": "REVENUE SOLUTIONS",
-    "description": "From toll collection to transportation fee management, we provide end-to-end revenue collection services for public infrastructure.",
+    "title2": "LOGISTICS SOLUTIONS",
+    "description": "From courier delivery to COD collection, we provide end-to-end logistics and payment services across the nation.",
     "viewAll": "View All Services",
     "duration": "Coverage",
     "participants": "Capacity",
@@ -43,78 +43,78 @@
     "enroll": "Learn More",
     "list": {
       "osha10": {
-        "title": "Toll Collection Services",
-        "description": "Comprehensive toll collection management for highways, bridges, and expressways across the nation."
+        "title": "Courier Delivery Services",
+        "description": "Fast and reliable package delivery services with real-time tracking across all provinces."
       },
       "osha30": {
-        "title": "Transportation Fee Management",
-        "description": "End-to-end fee collection and management for public transportation systems and terminals."
+        "title": "COD Collection",
+        "description": "Cash-on-delivery payment collection and settlement services for e-commerce and businesses."
       },
       "forklift": {
-        "title": "Electronic Payment Systems",
-        "description": "Modern electronic toll collection and contactless payment solutions for seamless transactions."
+        "title": "Cargo Transportation",
+        "description": "Full-scale cargo and freight transportation for businesses of all sizes nationwide."
       },
       "confined": {
-        "title": "Revenue Reporting & Analytics",
-        "description": "Real-time reporting, analytics, and transparent financial management for government partners."
+        "title": "Payment Settlement",
+        "description": "Secure financial settlement and remittance services with transparent reporting."
       },
       "fall": {
-        "title": "Infrastructure Support",
-        "description": "Technical support and maintenance for toll plazas, collection points, and payment systems."
+        "title": "Warehouse & Distribution",
+        "description": "Storage, inventory management, and distribution services for efficient supply chain operations."
       },
       "hazmat": {
-        "title": "Consulting Services",
-        "description": "Expert consulting for public works revenue optimization and transportation fee structures."
+        "title": "Express Delivery",
+        "description": "Same-day and next-day express delivery services for time-sensitive shipments."
       }
     }
   },
   "about": {
     "sectionLabel": "About LSTD",
     "title1": "YOUR TRUSTED",
-    "title2": "COLLECTION PARTNER",
-    "description": "For over two decades, LSTD has been the premier provider of revenue collection services for public works and transportation infrastructure. Our mission is to ensure efficient, transparent, and reliable revenue management for government projects.",
+    "title2": "LOGISTICS PARTNER",
+    "description": "LSTD is a leading provider of logistics and payment collection services, specializing in courier delivery, COD collection, cargo transportation, and financial settlement nationwide.",
     "learnMore": "Learn More About Us",
     "features": {
-      "osha": "Government-Authorized Service Provider",
-      "certified": "Experienced Collection Teams",
-      "flexible": "Nationwide Coverage",
-      "customized": "Customized Solutions for Each Project",
-      "bilingual": "Modern Technology Integration",
-      "digital": "Real-time Reporting & Transparency"
+      "osha": "Nationwide Delivery Network",
+      "certified": "Experienced Logistics Team",
+      "flexible": "Real-time Package Tracking",
+      "customized": "Customized Logistics Solutions",
+      "bilingual": "Secure Payment Processing",
+      "digital": "Transparent Financial Reporting"
     },
     "vision": {
       "title": "Our Vision",
-      "content": "To be the leading provider of public works revenue collection services in the region, setting the standard for efficiency, transparency, and innovation."
+      "content": "To be the most trusted logistics and payment collection partner in the region, connecting businesses and customers through reliable delivery and financial services."
     },
     "mission": {
       "title": "Our Mission",
-      "content": "To deliver reliable and transparent revenue collection services that support national infrastructure development and public transportation systems."
+      "content": "To deliver exceptional logistics services and secure payment collection solutions that empower businesses and enhance customer satisfaction."
     },
     "values": {
       "title": "Core Values",
-      "safety": "Integrity",
+      "safety": "Reliability",
       "excellence": "Excellence",
-      "integrity": "Transparency",
+      "integrity": "Integrity",
       "innovation": "Innovation"
     },
     "history": {
       "title": "Our History",
-      "content": "Founded in 1998, LSTD has grown from a small collection agency to a comprehensive public works revenue solutions provider serving projects across the nation."
+      "content": "Since our founding, LSTD has grown from a local courier service to a comprehensive logistics and payment collection network serving businesses and customers across the nation."
     },
     "team": {
       "title": "Management Team",
-      "content": "Our leadership team brings decades of combined experience in public administration, financial management, and infrastructure development."
+      "content": "Our leadership team brings decades of combined experience in logistics, transportation, and financial services management."
     }
   },
   "cta": {
-    "title1": "READY TO PARTNER",
+    "title1": "READY TO SHIP",
     "title2": "WITH US?",
-    "description": "Get in touch with our specialists to discuss your public works revenue collection needs and build a customized solution for your project.",
-    "schedule": "Schedule Consultation",
+    "description": "Get in touch with our logistics specialists to discuss your delivery and payment collection needs.",
+    "schedule": "Get a Quote",
     "call": "Call"
   },
   "footer": {
-    "description": "Professional revenue collection services for public works and transportation infrastructure across the nation.",
+    "description": "Professional logistics, courier delivery, and payment collection services nationwide.",
     "quickLinks": "Quick Links",
     "popularCourses": "Our Services",
     "contactUs": "Contact Us",
@@ -123,29 +123,29 @@
     "terms": "Terms of Service"
   },
   "projects": {
-    "title": "Our Projects",
-    "subtitle": "PPP Projects & Infrastructure",
-    "description": "Explore our public-private partnership projects and major infrastructure initiatives across the nation.",
+    "title": "Our Operations",
+    "subtitle": "Nationwide Logistics Network",
+    "description": "Explore our extensive logistics operations, distribution centers, and delivery network across the country.",
     "viewGallery": "View Gallery",
     "milestones": "Key Milestones",
-    "ongoing": "Ongoing",
+    "ongoing": "Active",
     "completed": "Completed"
   },
   "services": {
     "title": "Our Services",
-    "subtitle": "Revenue Collection Solutions",
-    "description": "Comprehensive revenue collection and management services tailored to public works and transportation projects.",
+    "subtitle": "Logistics & Payment Solutions",
+    "description": "Comprehensive logistics, courier delivery, and payment collection services tailored to your business needs.",
     "categories": {
-      "training": "Toll Collection",
-      "consulting": "Fee Management",
-      "auditing": "Financial Reporting",
+      "training": "Courier Delivery",
+      "consulting": "COD Collection",
+      "auditing": "Cargo Transport",
       "custom": "Custom Solutions"
     }
   },
   "news": {
     "title": "News & Media",
     "subtitle": "Latest Updates",
-    "description": "Stay informed with the latest news, press releases, and media coverage from LSTD.",
+    "description": "Stay informed with the latest news, updates, and announcements from LSTD.",
     "readMore": "Read More",
     "pressReleases": "Press Releases",
     "articles": "Articles",
@@ -154,16 +154,35 @@
   "careers": {
     "title": "Careers",
     "subtitle": "Join Our Team",
-    "description": "Build your career with LSTD and help us support national infrastructure development.",
+    "description": "Build your career with LSTD and be part of our growing logistics and delivery network.",
     "openPositions": "Open Positions",
     "applyNow": "Apply Now",
     "benefits": "Benefits",
-    "culture": "Our Culture"
+    "culture": "Our Culture",
+    "benefitsList": {
+      "growth": {
+        "title": "Career Growth",
+        "description": "Clear advancement paths and skill development opportunities"
+      },
+      "insurance": {
+        "title": "Health Insurance",
+        "description": "Comprehensive health coverage for you and your family"
+      },
+      "balance": {
+        "title": "Work-Life Balance",
+        "description": "Flexible schedules and supportive work environment"
+      },
+      "competitive": {
+        "title": "Competitive Pay",
+        "description": "Attractive salary packages and performance bonuses"
+      }
+    },
+    "cultureDescription": "At LSTD, we foster a culture of teamwork, reliability, and continuous improvement. Join a dynamic team that values dedication and delivers excellence every day."
   },
   "contact": {
     "title": "Contact Us",
     "subtitle": "Get in Touch",
-    "description": "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "description": "Have questions about our logistics services? We'd love to hear from you.",
     "socialMedia": "Social Media",
     "form": {
       "title": "Send us a Message",
