@@ -18,16 +18,16 @@ export const About = () => {
   ];
 
   // Get dynamic content from database
-  const heroSection = getSection('hero');
-  const heroRaw = getSectionRaw('hero');
-  const visionSection = getSection('vision');
-  const visionRaw = getSectionRaw('vision');
-  const missionSection = getSection('mission');
-  const missionRaw = getSectionRaw('mission');
-  const historySection = getSection('history');
-  const historyRaw = getSectionRaw('history');
-  const teamSection = getSection('team');
-  const teamRaw = getSectionRaw('team');
+  const heroSection = getSection('about_hero');
+  const heroRaw = getSectionRaw('about_hero');
+  const visionSection = getSection('about_vision');
+  const visionRaw = getSectionRaw('about_vision');
+  const missionSection = getSection('about_mission');
+  const missionRaw = getSectionRaw('about_mission');
+  const historySection = getSection('about_history');
+  const historyRaw = getSectionRaw('about_history');
+  const teamSection = getSection('about_team');
+  const teamRaw = getSectionRaw('about_team');
 
   return (
     <PageLayout>

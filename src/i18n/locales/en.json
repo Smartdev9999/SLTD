@@ -159,6 +159,15 @@
     "applyNow": "Apply Now",
     "benefits": "Benefits",
     "culture": "Our Culture",
+    "noOpenings": "No open positions at this time. Check back soon!",
+    "healthInsurance": "Health Insurance",
+    "healthInsuranceDesc": "Comprehensive health coverage for you and your family",
+    "teamEnvironment": "Team Environment",
+    "teamEnvironmentDesc": "Collaborative workplace with supportive colleagues",
+    "growthOpportunities": "Growth Opportunities",
+    "growthOpportunitiesDesc": "Clear career paths and skill development programs",
+    "workLifeBalance": "Work-Life Balance",
+    "workLifeBalanceDesc": "Flexible schedules and supportive work environment",
     "benefitsList": {
       "growth": {
         "title": "Career Growth",
@@ -177,7 +186,7 @@
         "description": "Attractive salary packages and performance bonuses"
       }
     },
-    "cultureDescription": "At LSTD, we foster a culture of teamwork, reliability, and continuous improvement. Join a dynamic team that values dedication and delivers excellence every day."
+    "cultureDescription": "At {{company}}, we foster a culture of teamwork, reliability, and continuous improvement. Join a dynamic team that values dedication and delivers excellence every day."
   },
   "contact": {
     "title": "Contact Us",
