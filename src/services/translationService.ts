@@ -1,3 +1,4 @@
+// Translation service with LibreTranslate (primary) and MyMemory (fallback)
 const LIBRETRANSLATE_API = 'https://libretranslate.com/translate';
 const MYMEMORY_API = 'https://api.mymemory.translated.net/get';
 
