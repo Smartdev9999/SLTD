@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useServices } from "@/hooks/useServices";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EditableTableText } from "@/components/front-edit/EditableTableText";
 
 export const CoursesSection = () => {
   const { t } = useTranslation();
-  const { services, isLoading } = useServices();
+  const { services, isLoading, refetch } = useServices();
 
   // Take first 6 services for homepage display
   const displayServices = services.slice(0, 6);
@@ -45,17 +46,45 @@ export const CoursesSection = () => {
         ) : displayServices.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {displayServices.map((service, index) => (
-              <CourseCard
+              <div
                 key={service.id}
-                title={service.title}
-                description={service.description}
-                duration={service.icon || ""}
-                participants=""
-                certification=""
-                featured={index === 1}
-                className="animate-fade-in"
+                className="group relative bg-card p-6 rounded-lg border border-border hover:border-primary/50 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
-              />
+              >
+                <h3 className="font-display text-xl text-foreground mb-3 group-hover:text-primary transition-colors">
+                  <EditableTableText
+                    tableName="services"
+                    recordId={service.id}
+                    fieldPrefix="title"
+                    currentValue={{
+                      en: service.title_en || '',
+                      la: service.title_la || '',
+                      th: service.title_th || '',
+                      zh: service.title_zh || '',
+                    }}
+                    onUpdate={refetch}
+                  >
+                    {service.title}
+                  </EditableTableText>
+                </h3>
+                <p className="text-muted-foreground text-sm line-clamp-3">
+                  <EditableTableText
+                    tableName="services"
+                    recordId={service.id}
+                    fieldPrefix="description"
+                    currentValue={{
+                      en: service.description_en || '',
+                      la: service.description_la || '',
+                      th: service.description_th || '',
+                      zh: service.description_zh || '',
+                    }}
+                    onUpdate={refetch}
+                    multiline
+                  >
+                    {service.description}
+                  </EditableTableText>
+                </p>
+              </div>
             ))}
           </div>
         ) : (
