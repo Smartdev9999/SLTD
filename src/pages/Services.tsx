@@ -15,9 +15,14 @@ interface DynamicIconProps extends Omit<LucideProps, 'ref'> {
 }
 
 const DynamicIcon = ({ name, ...props }: DynamicIconProps) => {
+  // Check if the icon exists in the imports
+  if (!dynamicIconImports[name]) {
+    return <div className="w-8 h-8 bg-primary/20 rounded" />;
+  }
+  
   const LucideIcon = lazy(dynamicIconImports[name]);
   return (
-    <Suspense fallback={<div className="w-12 h-12 bg-muted rounded-full animate-pulse" />}>
+    <Suspense fallback={<div className="w-8 h-8 bg-muted rounded animate-pulse" />}>
       <LucideIcon {...props} />
     </Suspense>
   );
