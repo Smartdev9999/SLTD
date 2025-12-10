@@ -8,7 +8,9 @@
     "careers": "招聘",
     "contact": "联系我们",
     "login": "登录",
-    "bookTraining": "开始"
+    "bookTraining": "开始",
+    "editPage": "编辑页面",
+    "exitEdit": "退出编辑"
   },
   "header": {
     "phone": "(123) 456-7890",

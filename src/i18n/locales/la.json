@@ -8,7 +8,9 @@
     "careers": "ອາຊີບ",
     "contact": "ຕິດຕໍ່",
     "login": "ເຂົ້າສູ່ລະບົບ",
-    "bookTraining": "ເລີ່ມຕົ້ນ"
+    "bookTraining": "ເລີ່ມຕົ້ນ",
+    "editPage": "ແກ້ໄຂໜ້າ",
+    "exitEdit": "ອອກຈາກການແກ້ໄຂ"
   },
   "header": {
     "phone": "(123) 456-7890",

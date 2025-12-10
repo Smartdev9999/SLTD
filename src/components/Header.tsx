@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Phone, Mail } from "lucide-react";
+import { Menu, X, Phone, Mail, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { EditableText, EditableImage } from "@/components/front-edit";
 import { useQueryClient } from "@tanstack/react-query";
+import { useFrontEdit } from "@/contexts/FrontEditContext";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const { companyName, tagline, logoUrl, settings } = useSiteSettings();
   const queryClient = useQueryClient();
+  const { isEditMode, toggleEditMode, canEdit } = useFrontEdit();
 
   const handleUpdate = () => {
     queryClient.invalidateQueries({ queryKey: ['site-settings'] });
@@ -110,6 +112,17 @@ export const Header = () => {
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
+            {canEdit && (
+              <Button
+                onClick={toggleEditMode}
+                variant={isEditMode ? 'default' : 'outline'}
+                size="sm"
+                className="gap-2"
+              >
+                <Pencil className="w-4 h-4" />
+                {isEditMode ? t('nav.exitEdit') : t('nav.editPage')}
+              </Button>
+            )}
             <Link to="/auth">
               <Button variant="outline" size="sm">{t('nav.login')}</Button>
             </Link>
@@ -134,6 +147,16 @@ export const Header = () => {
                   {item.name}
                 </Link>
               ))}
+              {canEdit && (
+                <Button
+                  onClick={() => { toggleEditMode(); setMobileMenuOpen(false); }}
+                  variant={isEditMode ? 'default' : 'outline'}
+                  className="w-full gap-2"
+                >
+                  <Pencil className="w-4 h-4" />
+                  {isEditMode ? t('nav.exitEdit') : t('nav.editPage')}
+                </Button>
+              )}
               <div className="flex gap-4 pt-4 border-t border-border">
                 <Link to="/auth" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full">{t('nav.login')}</Button>

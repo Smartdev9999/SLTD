@@ -8,7 +8,9 @@
     "careers": "ร่วมงานกับเรา",
     "contact": "ติดต่อ",
     "login": "เข้าสู่ระบบ",
-    "bookTraining": "เริ่มต้น"
+    "bookTraining": "เริ่มต้น",
+    "editPage": "แก้ไขหน้า",
+    "exitEdit": "ออกจากการแก้ไข"
   },
   "header": {
     "phone": "(123) 456-7890",
