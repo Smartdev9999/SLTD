@@ -1,20 +1,19 @@
 import { useTranslation } from 'react-i18next';
 import { PageLayout } from '@/components/layout/PageLayout';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { ContactInfo } from '@/components/contact/ContactInfo';
 import { ContactMap } from '@/components/contact/ContactMap';
+import heroImage from '@/assets/hero-contact.jpg';
 
 export const Contact = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const { getSetting } = useSiteSettings();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -46,47 +45,56 @@ export const Contact = () => {
 
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <section className="py-16 bg-muted">
-        <div className="container">
-          <p className="text-primary font-medium text-sm uppercase tracking-wider mb-2">
+      {/* Hero Section - Full Width with Background Image */}
+      <section 
+        className="relative min-h-[50vh] flex items-center justify-center"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-foreground/40" />
+        <div className="container relative z-10 text-center py-20">
+          <p className="text-primary font-medium text-sm uppercase tracking-wider mb-4">
             {t('contact.subtitle')}
           </p>
-          <h1 className="font-display text-4xl md:text-6xl text-foreground mb-6">
+          <h1 className="font-display text-5xl md:text-7xl text-background mb-6">
             {t('contact.title')}
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl">
+          <p className="text-background/80 text-lg max-w-2xl mx-auto">
             {t('contact.description')}
           </p>
         </div>
       </section>
 
-      {/* Contact Content */}
-      <section className="py-16">
+      {/* Contact Content - Clean Layout */}
+      <section className="py-20">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info & Social Media */}
+          <div className="grid lg:grid-cols-2 gap-16">
+            {/* Contact Info */}
             <ContactInfo />
 
-            {/* Contact Form */}
-            <div className="bg-card border border-border rounded-lg p-8">
-              <h2 className="font-display text-2xl text-foreground mb-6">
+            {/* Contact Form - Clean Design */}
+            <div className="bg-card rounded-lg p-10">
+              <h2 className="font-display text-3xl text-foreground mb-8">
                 {t('contact.form.title')}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">{t('contact.form.name')}</Label>
+                    <Label htmlFor="name" className="text-sm font-medium">{t('contact.form.name')}</Label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
+                      className="h-12"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">{t('contact.form.email')}</Label>
+                    <Label htmlFor="email" className="text-sm font-medium">{t('contact.form.email')}</Label>
                     <Input
                       id="email"
                       name="email"
@@ -94,35 +102,38 @@ export const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      className="h-12"
                     />
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="phone">{t('contact.form.phone')}</Label>
+                    <Label htmlFor="phone" className="text-sm font-medium">{t('contact.form.phone')}</Label>
                     <Input
                       id="phone"
                       name="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={handleChange}
+                      className="h-12"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="subject">{t('contact.form.subject')}</Label>
+                    <Label htmlFor="subject" className="text-sm font-medium">{t('contact.form.subject')}</Label>
                     <Input
                       id="subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
                       required
+                      className="h-12"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">{t('contact.form.message')}</Label>
+                  <Label htmlFor="message" className="text-sm font-medium">{t('contact.form.message')}</Label>
                   <Textarea
                     id="message"
                     name="message"
@@ -133,7 +144,7 @@ export const Contact = () => {
                   />
                 </div>
 
-                <Button type="submit" size="lg" disabled={isSubmitting}>
+                <Button type="submit" size="lg" className="w-full h-12" disabled={isSubmitting}>
                   {isSubmitting ? (
                     t('contact.form.sending')
                   ) : (

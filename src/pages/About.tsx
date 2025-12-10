@@ -4,16 +4,17 @@ import { CheckCircle2, Target, Eye, Heart, History, Users, Loader2 } from 'lucid
 import { useAboutContent } from '@/hooks/useAboutContent';
 import { EditableTableText } from '@/components/front-edit/EditableTableText';
 import { EditableTableImage } from '@/components/front-edit/EditableTableImage';
+import heroImage from '@/assets/hero-about.jpg';
 
 export const About = () => {
   const { t } = useTranslation();
   const { getSection, getSectionRaw, isLoading, refetch } = useAboutContent();
 
   const values = [
-    { key: 'safety', icon: CheckCircle2 },
-    { key: 'excellence', icon: Target },
-    { key: 'integrity', icon: Heart },
-    { key: 'innovation', icon: Eye },
+    { key: 'safety', icon: CheckCircle2, color: 'bg-green-500/10 text-green-600' },
+    { key: 'excellence', icon: Target, color: 'bg-blue-500/10 text-blue-600' },
+    { key: 'integrity', icon: Heart, color: 'bg-red-500/10 text-red-600' },
+    { key: 'innovation', icon: Eye, color: 'bg-purple-500/10 text-purple-600' },
   ];
 
   // Get dynamic content from database
@@ -30,13 +31,21 @@ export const About = () => {
 
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <section className="py-16 bg-muted">
-        <div className="container">
-          <p className="text-primary font-medium text-sm uppercase tracking-wider mb-2">
+      {/* Hero Section - Full Width with Background Image */}
+      <section 
+        className="relative min-h-[60vh] flex items-center justify-center"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/50" />
+        <div className="container relative z-10 text-center py-20">
+          <p className="text-primary font-medium text-sm uppercase tracking-wider mb-4">
             {t('about.sectionLabel')}
           </p>
-          <h1 className="font-display text-4xl md:text-6xl text-foreground mb-6">
+          <h1 className="font-display text-5xl md:text-7xl text-background mb-6">
             {heroRaw ? (
               <EditableTableText
                 tableName="about_content"
@@ -53,14 +62,10 @@ export const About = () => {
                 {heroSection?.title || t('about.title1')}
               </EditableTableText>
             ) : (
-              <>
-                {t('about.title1')}
-                <br />
-                <span className="text-primary">{t('about.title2')}</span>
-              </>
+              t('about.title1')
             )}
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl">
+          <p className="text-background/80 text-lg max-w-2xl mx-auto">
             {heroRaw ? (
               <EditableTableText
                 tableName="about_content"
@@ -84,35 +89,37 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      <section className="py-16">
+      {/* Vision & Mission - Clean Cards */}
+      <section className="py-20">
         <div className="container">
           {isLoading ? (
-            <div className="flex justify-center py-12">
+            <div className="flex justify-center py-16">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-card border border-border rounded-lg p-8">
+            <div className="grid md:grid-cols-2 gap-12">
+              <div className="p-10 rounded-lg bg-muted">
                 {visionRaw && (
                   <EditableTableImage
                     tableName="about_content"
                     recordId={visionRaw.id}
                     currentUrl={visionRaw.image_url}
                     onUpdate={refetch}
-                    className="w-full aspect-video mb-4 rounded-lg overflow-hidden"
+                    className="w-full aspect-video mb-6 rounded-lg overflow-hidden"
                   >
                     {visionRaw.image_url ? (
                       <img src={visionRaw.image_url} alt="Vision" className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-accent flex items-center justify-center">
+                      <div className="w-full h-full bg-accent/50 flex items-center justify-center">
                         <Eye className="w-12 h-12 text-primary" />
                       </div>
                     )}
                   </EditableTableImage>
                 )}
-                {!visionRaw && <Eye className="w-12 h-12 text-primary mb-4" />}
-                <h2 className="font-display text-2xl text-foreground mb-4">
+                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <Eye className="w-7 h-7 text-primary" />
+                </div>
+                <h2 className="font-display text-3xl text-foreground mb-4">
                   {visionRaw ? (
                     <EditableTableText
                       tableName="about_content"
@@ -132,7 +139,7 @@ export const About = () => {
                     t('about.vision.title')
                   )}
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   {visionRaw ? (
                     <EditableTableText
                       tableName="about_content"
@@ -154,26 +161,28 @@ export const About = () => {
                   )}
                 </p>
               </div>
-              <div className="bg-card border border-border rounded-lg p-8">
+              <div className="p-10 rounded-lg bg-muted">
                 {missionRaw && (
                   <EditableTableImage
                     tableName="about_content"
                     recordId={missionRaw.id}
                     currentUrl={missionRaw.image_url}
                     onUpdate={refetch}
-                    className="w-full aspect-video mb-4 rounded-lg overflow-hidden"
+                    className="w-full aspect-video mb-6 rounded-lg overflow-hidden"
                   >
                     {missionRaw.image_url ? (
                       <img src={missionRaw.image_url} alt="Mission" className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-accent flex items-center justify-center">
+                      <div className="w-full h-full bg-accent/50 flex items-center justify-center">
                         <Target className="w-12 h-12 text-primary" />
                       </div>
                     )}
                   </EditableTableImage>
                 )}
-                {!missionRaw && <Target className="w-12 h-12 text-primary mb-4" />}
-                <h2 className="font-display text-2xl text-foreground mb-4">
+                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <Target className="w-7 h-7 text-primary" />
+                </div>
+                <h2 className="font-display text-3xl text-foreground mb-4">
                   {missionRaw ? (
                     <EditableTableText
                       tableName="about_content"
@@ -193,7 +202,7 @@ export const About = () => {
                     t('about.mission.title')
                   )}
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   {missionRaw ? (
                     <EditableTableText
                       tableName="about_content"
@@ -220,16 +229,18 @@ export const About = () => {
         </div>
       </section>
 
-      {/* Core Values */}
-      <section className="py-16 bg-muted">
+      {/* Core Values - Colored Cards */}
+      <section className="py-20 bg-muted">
         <div className="container">
-          <h2 className="font-display text-3xl text-foreground mb-8 text-center">
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-12 text-center">
             {t('about.values.title')}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map(({ key, icon: Icon }) => (
-              <div key={key} className="bg-card border border-border rounded-lg p-6 text-center">
-                <Icon className="w-10 h-10 text-primary mx-auto mb-4" />
+            {values.map(({ key, icon: Icon, color }) => (
+              <div key={key} className="bg-card rounded-lg p-8 text-center hover:shadow-lg transition-shadow">
+                <div className={`w-16 h-16 rounded-full ${color} flex items-center justify-center mx-auto mb-6`}>
+                  <Icon className="w-8 h-8" />
+                </div>
                 <h3 className="font-display text-xl text-foreground">
                   {t(`about.values.${key}`)}
                 </h3>
@@ -239,10 +250,10 @@ export const About = () => {
         </div>
       </section>
 
-      {/* History */}
-      <section className="py-16">
+      {/* History - Split Layout */}
+      <section className="py-20">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               {historyRaw && (
                 <EditableTableImage
@@ -250,19 +261,23 @@ export const About = () => {
                   recordId={historyRaw.id}
                   currentUrl={historyRaw.image_url}
                   onUpdate={refetch}
-                  className="w-full aspect-video mb-4 rounded-lg overflow-hidden"
+                  className="w-full aspect-[4/3] rounded-lg overflow-hidden"
                 >
                   {historyRaw.image_url ? (
                     <img src={historyRaw.image_url} alt="History" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-accent flex items-center justify-center">
-                      <History className="w-12 h-12 text-primary" />
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <History className="w-16 h-16 text-primary" />
                     </div>
                   )}
                 </EditableTableImage>
               )}
-              {!historyRaw && <History className="w-12 h-12 text-primary mb-4" />}
-              <h2 className="font-display text-3xl text-foreground mb-4">
+            </div>
+            <div>
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                <History className="w-7 h-7 text-primary" />
+              </div>
+              <h2 className="font-display text-3xl md:text-4xl text-foreground mb-6">
                 {historyRaw ? (
                   <EditableTableText
                     tableName="about_content"
@@ -282,7 +297,7 @@ export const About = () => {
                   t('about.history.title')
                 )}
               </h2>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-muted-foreground text-lg leading-relaxed mb-8">
                 {historyRaw ? (
                   <EditableTableText
                     tableName="about_content"
@@ -303,38 +318,40 @@ export const About = () => {
                   t('about.history.content')
                 )}
               </p>
-            </div>
-            <div className="bg-accent rounded-lg p-8">
-              <div className="font-display text-6xl text-primary mb-4">25+</div>
-              <p className="text-muted-foreground">{t('hero.stats.experience')}</p>
+              <div className="flex items-center gap-6">
+                <div className="font-display text-6xl text-primary">25+</div>
+                <p className="text-muted-foreground">{t('hero.stats.experience')}</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Management Team */}
-      <section className="py-16 bg-muted">
+      {/* Team Section - Minimal */}
+      <section className="py-20 bg-muted">
         <div className="container">
-          <div className="text-center max-w-2xl mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
             {teamRaw && (
               <EditableTableImage
                 tableName="about_content"
                 recordId={teamRaw.id}
                 currentUrl={teamRaw.image_url}
                 onUpdate={refetch}
-                className="w-full aspect-video mb-6 rounded-lg overflow-hidden"
+                className="w-full aspect-video mb-10 rounded-lg overflow-hidden"
               >
                 {teamRaw.image_url ? (
                   <img src={teamRaw.image_url} alt="Team" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full bg-accent flex items-center justify-center">
-                    <Users className="w-12 h-12 text-primary" />
+                  <div className="w-full h-full bg-accent/50 flex items-center justify-center">
+                    <Users className="w-16 h-16 text-primary" />
                   </div>
                 )}
               </EditableTableImage>
             )}
-            {!teamRaw && <Users className="w-12 h-12 text-primary mx-auto mb-4" />}
-            <h2 className="font-display text-3xl text-foreground mb-4">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8">
+              <Users className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground mb-6">
               {teamRaw ? (
                 <EditableTableText
                   tableName="about_content"
@@ -354,7 +371,7 @@ export const About = () => {
                 t('about.team.title')
               )}
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               {teamRaw ? (
                 <EditableTableText
                   tableName="about_content"
