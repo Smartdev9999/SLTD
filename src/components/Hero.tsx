@@ -58,7 +58,7 @@ export const Hero = () => {
   const backgroundImage = heroBackgroundImage || heroHomeImage;
 
   return (
-    <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
+    <section className="relative min-h-[100svh] flex items-end pb-16 md:pb-24 overflow-hidden">
       {/* Background Image */}
       <EditableImage
         settingKey="hero_background_image"
@@ -74,10 +74,10 @@ export const Hero = () => {
       </EditableImage>
       
       {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-foreground/40 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30 z-[1]" />
       
       {/* Accent line */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-64 bg-primary z-[3]" />
+      <div className="absolute left-0 bottom-1/3 w-2 h-64 bg-primary z-[3]" />
       
       <div className="container relative z-10">
         <div className="max-w-3xl">
@@ -92,7 +92,7 @@ export const Hero = () => {
             </EditableText>
           </div>
           
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-background leading-none mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-white leading-none mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <EditableText
               settingKey="hero_title1"
               currentValue={getEditableValues('hero_title1', t('hero.title1'))}
@@ -120,7 +120,7 @@ export const Hero = () => {
             </EditableText>
           </h1>
           
-          <p className="text-lg md:text-xl text-background/80 max-w-xl mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <p className="text-lg md:text-xl text-white/80 max-w-xl mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <EditableText
               settingKey="hero_subtitle"
               currentValue={getEditableValues('hero_subtitle', t('hero.subtitle'))}
@@ -138,7 +138,7 @@ export const Hero = () => {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-base px-8 bg-transparent border-background/30 text-background hover:bg-background/10 hover:text-background" asChild>
+            <Button size="lg" variant="outline" className="text-base px-8 bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white" asChild>
               <Link to="/contact">
                 {t('hero.requestQuote')}
               </Link>
@@ -149,7 +149,7 @@ export const Hero = () => {
             {stats.map((stat, index) => (
               <div key={index} className="text-center sm:text-left">
                 <stat.icon className="w-6 h-6 text-primary mb-2 mx-auto sm:mx-0" />
-                <div className="font-display text-3xl md:text-4xl text-background">
+                <div className="font-display text-3xl md:text-4xl text-white">
                   <EditableText
                     settingKey={stat.valueKey}
                     currentValue={getEditableValues(stat.valueKey, stat.value)}
@@ -158,7 +158,7 @@ export const Hero = () => {
                     {stat.value}
                   </EditableText>
                 </div>
-                <div className="text-sm text-background/70">
+                <div className="text-sm text-white/70">
                   <EditableText
                     settingKey={stat.labelKey}
                     currentValue={getEditableValues(stat.labelKey, stat.label)}
