@@ -19,12 +19,13 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
+    lng: localStorage.getItem('i18nextLng') || 'en', // Default to English immediately
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['localStorage'], // Only use localStorage, not browser language
       caches: ['localStorage'],
     },
   });
