@@ -74,7 +74,7 @@ export const EditableTableText = ({
   };
 
   if (!isEditMode) {
-    return <>{children}</>;
+    return <span className={className}>{children}</span>;
   }
 
   const InputComponent = multiline ? Textarea : Input;

@@ -9,7 +9,9 @@ import heroImage from '@/assets/hero-projects.jpg';
 
 export const Projects = () => {
   const { t } = useTranslation();
-  const { projects, isLoading, refetch } = useProjects();
+  const { projects, rawProjects, isLoading, refetch } = useProjects();
+
+  const getRawProject = (id: string) => rawProjects.find(p => p.id === id);
 
   return (
     <PageLayout>
@@ -49,89 +51,100 @@ export const Projects = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-8">
-              {projects.map((project) => (
-                <div
-                  key={project.id}
-                  className="group bg-card rounded-lg overflow-hidden hover:shadow-lg transition-all"
-                >
-                  {/* Image */}
-                  <EditableTableImage
-                    tableName="projects"
-                    recordId={project.id}
-                    currentUrl={project.image_url}
-                    onUpdate={refetch}
-                    className="aspect-[16/10] bg-muted overflow-hidden"
+              {projects.map((project) => {
+                const raw = getRawProject(project.id);
+                return (
+                  <div
+                    key={project.id}
+                    className="group bg-card rounded-lg overflow-hidden hover:shadow-lg transition-all"
                   >
-                    {project.image_url ? (
-                      <img 
-                        src={project.image_url} 
-                        alt={project.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Building2 className="w-16 h-16 text-muted-foreground/30" />
+                    {/* Image */}
+                    <EditableTableImage
+                      tableName="projects"
+                      recordId={project.id}
+                      currentUrl={project.image_url}
+                      onUpdate={refetch}
+                      className="aspect-[16/10] bg-muted overflow-hidden"
+                    >
+                      {project.image_url ? (
+                        <img 
+                          src={project.image_url} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Building2 className="w-16 h-16 text-muted-foreground/30" />
+                        </div>
+                      )}
+                    </EditableTableImage>
+
+                    {/* Content */}
+                    <div className="p-8">
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <Badge variant={project.status === 'ongoing' ? 'default' : 'secondary'}>
+                          {project.status === 'ongoing' ? t('projects.ongoing') : t('projects.completed')}
+                        </Badge>
+                        {project.year && (
+                          <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <Calendar className="w-4 h-4" />
+                            {project.year}
+                          </span>
+                        )}
+                        {project.location && (
+                          <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <MapPin className="w-4 h-4" />
+                            {project.location}
+                          </span>
+                        )}
                       </div>
-                    )}
-                  </EditableTableImage>
 
-                  {/* Content */}
-                  <div className="p-8">
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <Badge variant={project.status === 'ongoing' ? 'default' : 'secondary'}>
-                        {project.status === 'ongoing' ? t('projects.ongoing') : t('projects.completed')}
-                      </Badge>
-                      {project.year && (
-                        <span className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <Calendar className="w-4 h-4" />
-                          {project.year}
-                        </span>
-                      )}
-                      {project.location && (
-                        <span className="flex items-center gap-1 text-sm text-muted-foreground">
-                          <MapPin className="w-4 h-4" />
-                          {project.location}
-                        </span>
-                      )}
+                      <h2 className="font-display text-2xl text-foreground mb-3">
+                        {raw ? (
+                          <EditableTableText
+                            tableName="projects"
+                            recordId={project.id}
+                            fieldPrefix="title"
+                            currentValue={{
+                              en: raw.title_en || '',
+                              la: raw.title_la || '',
+                              th: raw.title_th || '',
+                              zh: raw.title_zh || '',
+                            }}
+                            onUpdate={refetch}
+                          >
+                            {project.title}
+                          </EditableTableText>
+                        ) : (
+                          project.title
+                        )}
+                      </h2>
+
+                      <p className="text-muted-foreground line-clamp-3">
+                        {raw ? (
+                          <EditableTableText
+                            tableName="projects"
+                            recordId={project.id}
+                            fieldPrefix="description"
+                            currentValue={{
+                              en: raw.description_en || '',
+                              la: raw.description_la || '',
+                              th: raw.description_th || '',
+                              zh: raw.description_zh || '',
+                            }}
+                            onUpdate={refetch}
+                            multiline
+                          >
+                            {project.description}
+                          </EditableTableText>
+                        ) : (
+                          project.description
+                        )}
+                      </p>
                     </div>
-
-                    <h2 className="font-display text-2xl text-foreground mb-3">
-                      <EditableTableText
-                        tableName="projects"
-                        recordId={project.id}
-                        fieldPrefix="title"
-                        currentValue={{
-                          en: project.title_en || '',
-                          la: project.title_la || '',
-                          th: project.title_th || '',
-                          zh: project.title_zh || '',
-                        }}
-                        onUpdate={refetch}
-                      >
-                        {project.title}
-                      </EditableTableText>
-                    </h2>
-
-                    <p className="text-muted-foreground line-clamp-3">
-                      <EditableTableText
-                        tableName="projects"
-                        recordId={project.id}
-                        fieldPrefix="description"
-                        currentValue={{
-                          en: project.description_en || '',
-                          la: project.description_la || '',
-                          th: project.description_th || '',
-                          zh: project.description_zh || '',
-                        }}
-                        onUpdate={refetch}
-                        multiline
-                      >
-                        {project.description}
-                      </EditableTableText>
-                    </p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
