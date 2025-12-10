@@ -1,7 +1,8 @@
+import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
 
-export const SocialLinks = () => {
+export const SocialLinks = forwardRef<HTMLDivElement>((_, ref) => {
   const { t } = useTranslation();
   const { getSetting } = useSiteSettings();
 
@@ -14,7 +15,7 @@ export const SocialLinks = () => {
   if (!hasSocialLinks) return null;
 
   return (
-    <div className="pt-4">
+    <div ref={ref} className="pt-4">
       <h3 className="font-display text-xl text-foreground mb-4">
         {t('contact.socialMedia')}
       </h3>
@@ -61,4 +62,6 @@ export const SocialLinks = () => {
       </div>
     </div>
   );
-};
+});
+
+SocialLinks.displayName = 'SocialLinks';

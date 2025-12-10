@@ -6,7 +6,12 @@ import { useProjects } from "@/hooks/useProjects";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EditableTableText } from "@/components/front-edit/EditableTableText";
 import { EditableTableImage } from "@/components/front-edit/EditableTableImage";
+import projectPartnership from "@/assets/project-partnership.jpg";
+import projectEcommerce from "@/assets/project-ecommerce-new.jpg";
+import projectWarehouse from "@/assets/project-warehouse.jpg";
+import projectLogistics from "@/assets/project-logistics.jpg";
 
+const fallbackImages = [projectPartnership, projectEcommerce, projectWarehouse, projectLogistics];
 export const ProjectsSection = () => {
   const { t } = useTranslation();
   const { projects, isLoading, refetch } = useProjects();
@@ -88,16 +93,18 @@ export const ProjectsSection = () => {
                   onUpdate={refetch}
                   className="aspect-video overflow-hidden"
                 >
-                  {project.image_url ? (
+                  {project.image_url && project.image_url !== '/placeholder.svg' ? (
                     <img 
                       src={project.image_url} 
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-accent to-muted flex items-center justify-center">
-                      <span className="font-display text-4xl text-primary/20">LSTD</span>
-                    </div>
+                    <img 
+                      src={fallbackImages[index % fallbackImages.length]} 
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   )}
                 </EditableTableImage>
                 
