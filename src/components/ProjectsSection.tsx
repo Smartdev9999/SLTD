@@ -4,10 +4,11 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useProjects } from "@/hooks/useProjects";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EditableTableText } from "@/components/front-edit/EditableTableText";
 
 export const ProjectsSection = () => {
   const { t } = useTranslation();
-  const { projects, isLoading } = useProjects();
+  const { projects, isLoading, refetch } = useProjects();
 
   // Get featured projects only
   const featuredProjects = projects.filter(p => p.featured).slice(0, 4);
@@ -101,11 +102,38 @@ export const ProjectsSection = () => {
                   </div>
                   
                   <h3 className="font-display text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {project.title}
+                    <EditableTableText
+                      tableName="projects"
+                      recordId={project.id}
+                      fieldPrefix="title"
+                      currentValue={{
+                        en: project.title_en || '',
+                        la: project.title_la || '',
+                        th: project.title_th || '',
+                        zh: project.title_zh || '',
+                      }}
+                      onUpdate={refetch}
+                    >
+                      {project.title}
+                    </EditableTableText>
                   </h3>
                   
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                    {project.description}
+                    <EditableTableText
+                      tableName="projects"
+                      recordId={project.id}
+                      fieldPrefix="description"
+                      currentValue={{
+                        en: project.description_en || '',
+                        la: project.description_la || '',
+                        th: project.description_th || '',
+                        zh: project.description_zh || '',
+                      }}
+                      onUpdate={refetch}
+                      multiline
+                    >
+                      {project.description}
+                    </EditableTableText>
                   </p>
                   
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">

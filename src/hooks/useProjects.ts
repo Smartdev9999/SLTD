@@ -22,7 +22,7 @@ interface Project {
 export const useProjects = () => {
   const { i18n } = useTranslation();
 
-  const { data: projects, isLoading, error } = useQuery({
+  const { data: projects, isLoading, error, refetch } = useQuery({
     queryKey: ['projects-public'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -62,5 +62,6 @@ export const useProjects = () => {
     projects: localizedProjects,
     isLoading,
     error,
+    refetch,
   };
 };

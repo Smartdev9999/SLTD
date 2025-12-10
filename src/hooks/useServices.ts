@@ -20,7 +20,7 @@ interface Service {
 export const useServices = () => {
   const { i18n } = useTranslation();
 
-  const { data: services, isLoading, error } = useQuery({
+  const { data: services, isLoading, error, refetch } = useQuery({
     queryKey: ['services-public'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -61,5 +61,6 @@ export const useServices = () => {
     services: localizedServices,
     isLoading,
     error,
+    refetch,
   };
 };
