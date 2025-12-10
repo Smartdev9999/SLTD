@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Pencil } from "lucide-react";
+import { Menu, X, Pencil, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { EditableText, EditableImage } from "@/components/front-edit";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFrontEdit } from "@/contexts/FrontEditContext";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,6 +18,7 @@ export const Header = () => {
   const { companyName, tagline, logoUrl, settings } = useSiteSettings();
   const queryClient = useQueryClient();
   const { isEditMode, toggleEditMode, canEdit } = useFrontEdit();
+  const { isAdmin, isEditor } = useAuth();
   const location = useLocation();
 
   // Scroll detection for hide/show behavior
@@ -144,6 +146,18 @@ export const Header = () => {
                 {isEditMode ? t('nav.exitEdit') : t('nav.editPage')}
               </Button>
             )}
+            {(isAdmin || isEditor) && (
+              <Link to="/admin">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  Admin
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -186,6 +200,17 @@ export const Header = () => {
                     <Pencil className="w-4 h-4" />
                     {isEditMode ? t('nav.exitEdit') : t('nav.editPage')}
                   </Button>
+                )}
+                {(isAdmin || isEditor) && (
+                  <Link to="/admin" className="block px-4" onClick={() => setMobileMenuOpen(false)}>
+                    <Button
+                      variant="outline"
+                      className="w-full gap-2 bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white"
+                    >
+                      <LayoutDashboard className="w-4 h-4" />
+                      Admin Panel
+                    </Button>
+                  </Link>
                 )}
               </div>
             </div>
