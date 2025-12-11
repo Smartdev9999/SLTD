@@ -93,27 +93,18 @@ async function translateText(
   }
 }
 
+// Translate FROM English to other languages only (English is master language)
 export async function translateFromEnglish(englishText: string): Promise<TranslationResult> {
-  return translateToOtherLanguages(englishText, 'en');
-}
-
-export async function translateToOtherLanguages(
-  sourceText: string, 
-  sourceLang: LanguageKey
-): Promise<TranslationResult> {
   const errors: string[] = [];
-  const translations: Record<LanguageKey, string> = { en: '', la: '', th: '', zh: '' };
+  const translations: Record<LanguageKey, string> = { en: englishText, la: '', th: '', zh: '' };
   
-  // Keep source language text as-is
-  translations[sourceLang] = sourceText;
-  
-  // Get all other languages to translate to
-  const targetLanguages = (['en', 'la', 'th', 'zh'] as const).filter(lang => lang !== sourceLang);
+  // Only translate to non-English languages
+  const targetLanguages: LanguageKey[] = ['la', 'th', 'zh'];
   
   await Promise.all(
     targetLanguages.map(async (targetLang) => {
       try {
-        translations[targetLang] = await translateText(sourceText, sourceLang, targetLang);
+        translations[targetLang] = await translateText(englishText, 'en', targetLang);
       } catch (error) {
         errors.push(`${targetLang}: ${error instanceof Error ? error.message : 'Failed'}`);
         translations[targetLang] = '';
@@ -128,22 +119,3 @@ export async function translateToOtherLanguages(
   };
 }
 
-export function detectChangedLanguage(
-  original: Record<LanguageKey, string>,
-  current: Record<LanguageKey, string>
-): LanguageKey | null {
-  const changedLangs: LanguageKey[] = [];
-  
-  (['en', 'la', 'th', 'zh'] as const).forEach(lang => {
-    if (original[lang] !== current[lang]) {
-      changedLangs.push(lang);
-    }
-  });
-  
-  // Only return source if exactly one language changed
-  if (changedLangs.length === 1) {
-    return changedLangs[0];
-  }
-  
-  return null;
-}

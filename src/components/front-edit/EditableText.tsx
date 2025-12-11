@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { translateToOtherLanguages, detectChangedLanguage, LanguageKey } from '@/services/translationService';
+import { translateFromEnglish, LanguageKey } from '@/services/translationService';
 
 interface EditableTextProps {
   children: ReactNode;
@@ -53,17 +53,16 @@ export const EditableText = ({
   const handleSave = async () => {
     let finalValues = { ...values };
 
-    // Detect which language changed
-    const changedLang = detectChangedLanguage(originalValues.current, values);
+    // Only auto-translate when English is edited (English is master language)
+    const englishChanged = originalValues.current.en !== values.en;
 
-    if (changedLang && values[changedLang].trim()) {
-      // One language was edited - translate to all others
+    if (englishChanged && values.en.trim()) {
       setIsTranslating(true);
       try {
-        const result = await translateToOtherLanguages(values[changedLang], changedLang);
+        const result = await translateFromEnglish(values.en);
         if (result.success) {
-          // Apply translations to all languages
-          (['en', 'la', 'th', 'zh'] as LanguageKey[]).forEach(lang => {
+          // Apply translations to non-English languages only
+          (['la', 'th', 'zh'] as LanguageKey[]).forEach(lang => {
             if (result.translations[lang]) {
               finalValues[lang] = result.translations[lang];
             }
